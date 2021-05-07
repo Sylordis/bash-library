@@ -1,0 +1,8 @@
+export SH_PATH="$(pwd)"
+export SH_PATH_SRC="$SH_PATH/src"
+export SH_PATH_LIBS="$SH_PATH_SRC/libs"
+export SH_PATH_COMPL="$SH_PATH_SRC/completion"
+export SH_PATH_PACKS="$SH_PATH_SRC/packages"
+export SH_PATH_TEST="$SH_PATH/test"
+export SH_PATH_UTILS="$SH_PATH/utils"
+export SH_DEBUG="$SH_PATH_UTILS/debug.sh"

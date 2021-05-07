@@ -1,0 +1,16 @@
+#! /bin/bash
+
+(true && true) && echo "true" || echo "false"
+(true && false) && echo "true" || echo "false"
+(false && true) && echo "true" || echo "false"
+(false && false) && echo "true" || echo "false"
+echo "--------------------------"
+(true || true) && echo "true" || echo "false"
+(true || false) && echo "true" || echo "false"
+(false || true) && echo "true" || echo "false"
+(false || false) && echo "true" || echo "false"
+echo "--------------------------"
+(true && ! false) && echo "true" || echo "false"
+(true && ! true) && echo "true" || echo "false"
+(! true && true) && echo "true" || echo "false"
+(! true && ! true) && echo "true" || echo "false"

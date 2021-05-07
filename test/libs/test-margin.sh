@@ -4,7 +4,7 @@
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Sources
-source "$SH_PATH_LIBS/margin.sh"
+source "$SH_PATH_LIB/margin.sh"
 
 test_margin(){
   test_and_assert --fnc margin "$@"

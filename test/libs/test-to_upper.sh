@@ -4,7 +4,7 @@
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Sources
-source "$SH_PATH_LIBS/to_upper.sh"
+source "$SH_PATH_LIB/to_upper.sh"
 
 # Auto launch function
 test_toUpper() {

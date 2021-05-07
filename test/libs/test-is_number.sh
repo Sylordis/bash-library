@@ -4,7 +4,7 @@
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Sources
-source "$SH_PATH_LIBS/is_number.sh"
+source "$SH_PATH_LIB/is_number.sh"
 
 test_isNumber() {
   test_and_assert --fnc 'is_number' -psr -mb "'$2' is a number? " "$@"

@@ -2,10 +2,10 @@
 
 # Test includes
 source "$SH_PATH_UTILS/testing_framework.sh"
-source "$SH_PATH_LIBS/to_lower.sh"
+source "$SH_PATH_LIB/to_lower.sh"
 
 # Sources
-source "$SH_PATH_LIBS/apply_transformations.sh"
+source "$SH_PATH_LIB/apply_transformations.sh"
 
 test_applyTransformations() {
   test_and_assert --fnc apply_transformations -Anl "$@"

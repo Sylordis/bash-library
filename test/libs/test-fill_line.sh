@@ -4,7 +4,7 @@
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Sources
-source "$SH_PATH_LIBS/fill_line.sh"
+source "$SH_PATH_LIB/fill_line.sh"
 
 test_fillLine() {
   test_and_assert --fnc "fill_line" -Anl "$@"

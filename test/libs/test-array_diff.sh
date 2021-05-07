@@ -4,8 +4,8 @@
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Sources
-source "$SH_PATH_LIBS/array_diff.sh"
-source "$SH_PATH_LIBS/print_array.sh"
+source "$SH_PATH_LIB/array_diff.sh"
+source "$SH_PATH_LIB/print_array.sh"
 
 test_arrayDiff() {
   local expected="$1"

@@ -4,7 +4,7 @@
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Sources
-source "$SH_PATH_LIBS/print_result.sh"
+source "$SH_PATH_LIB/print_result.sh"
 
 test_printResult() {
   test_and_assert --fnc print_result --exp-colours -Al "$@"

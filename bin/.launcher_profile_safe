@@ -1,6 +1,6 @@
-[[ -z "$SH_PATH" ]] && export SH_PATH="$(readlink -f "$(dirname "${BASH_SOURCE[0]}")")"
+[[ -z "$SH_PATH" ]] && export SH_PATH="$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/..")"
 [[ -z "$SH_PATH_SRC" ]] && export SH_PATH_SRC="$SH_PATH/src"
-[[ -z "$SH_PATH_LIBS" ]] && export SH_PATH_LIBS="$SH_PATH_SRC/libs"
+[[ -z "$SH_PATH_LIB" ]] && export SH_PATH_LIB="$SH_PATH_SRC/lib"
 [[ -z "$SH_PATH_COMPL" ]] && export SH_PATH_COMPL="$SH_PATH_SRC/completion"
 [[ -z "$SH_PATH_PACKS" ]] && export SH_PATH_PACKS="$SH_PATH_SRC/packages"
 [[ -z "$SH_PATH_TEST" ]] && export SH_PATH_TEST="$SH_PATH/test"

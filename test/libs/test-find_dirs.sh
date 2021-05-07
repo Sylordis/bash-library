@@ -4,7 +4,7 @@
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Sources
-source "$SH_PATH_LIBS/find_dirs.sh"
+source "$SH_PATH_LIB/find_dirs.sh"
 
 test_findAllDir() {
   test_and_assert --fnc find_dirs -An "$@"

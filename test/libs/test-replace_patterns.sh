@@ -4,7 +4,7 @@
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Sources
-source "$SH_PATH_LIBS/replace_patterns.sh"
+source "$SH_PATH_LIB/replace_patterns.sh"
 
 test_replace_patterns() {
   test_and_assert --fnc replace_patterns -Anl "$@"

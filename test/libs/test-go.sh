@@ -4,7 +4,7 @@
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Sources
-source "$SH_PATH_LIBS/go.sh"
+source "$SH_PATH_LIB/go.sh"
 
 test_go() {
   local currpwd expected result

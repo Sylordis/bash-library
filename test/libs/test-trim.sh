@@ -4,7 +4,7 @@
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Sources
-source "$SH_PATH_LIBS/trim.sh"
+source "$SH_PATH_LIB/trim.sh"
 
 test_trim() {
   test_and_assert --fnc trim -Anl "$@"

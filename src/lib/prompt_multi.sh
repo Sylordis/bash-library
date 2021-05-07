@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # Includes
-source "$SH_PATH_LIBS/join_by.sh"
+source "$SH_PATH_LIB/join_by.sh"
 
 #------------------------------------------------------------------------------
 # Prompts a question with multiple choices and returns once a choice has been

@@ -4,7 +4,7 @@
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Sources
-source "$SH_PATH_LIBS/is_ip.sh"
+source "$SH_PATH_LIB/is_ip.sh"
 
 # Auto launch function
 test_isIp() {

@@ -4,7 +4,7 @@
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Sources
-source "$SH_PATH_LIBS/join_by.sh"
+source "$SH_PATH_LIB/join_by.sh"
 
 # Auto launch function
 test_joinBy() {

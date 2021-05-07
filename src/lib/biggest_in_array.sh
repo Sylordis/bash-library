@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # Includes
-source "$SH_PATH_LIBS/is_number.sh"
+source "$SH_PATH_LIB/is_number.sh"
 
 #------------------------------------------------------------------------------
 # Returns the biggest element in a set of values. By default only takes

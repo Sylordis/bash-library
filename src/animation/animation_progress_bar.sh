@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # Includes
-source "$SH_PATH_LIBS/strip_color_tags.sh"
+source "$SH_PATH_LIB/strip_color_tags.sh"
 
 #------------------------------------------------------------------------------
 # animation_progress_bar()

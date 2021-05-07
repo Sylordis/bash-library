@@ -4,7 +4,7 @@
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Sources
-source "$SH_PATH_LIBS/dec2hex.sh"
+source "$SH_PATH_LIB/dec2hex.sh"
 
 test_dec2hex() {
   test_and_assert --fnc "dec2hex" -mb "(${*:2})16: " "$@"

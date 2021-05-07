@@ -4,7 +4,7 @@
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Sources
-source "$SH_PATH_LIBS/to_lower.sh"
+source "$SH_PATH_LIB/to_lower.sh"
 
 # Auto launch function
 test_toLower() {

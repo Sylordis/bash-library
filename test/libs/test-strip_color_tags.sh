@@ -4,7 +4,7 @@
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Sources
-source "$SH_PATH_LIBS/strip_color_tags.sh"
+source "$SH_PATH_LIB/strip_color_tags.sh"
 
 test_stripColorTags() {
   echo -e "Line: $txt"

@@ -4,7 +4,7 @@
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Source
-source "$SH_PATH_LIBS/print_array.sh"
+source "$SH_PATH_LIB/print_array.sh"
 
 # Test
 test_printArray() {

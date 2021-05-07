@@ -4,7 +4,7 @@
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Sources
-source "$SH_PATH_LIBS/count_in_array.sh"
+source "$SH_PATH_LIB/count_in_array.sh"
 
 # Auto launch function
 test_countInArray() {

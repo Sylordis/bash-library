@@ -4,7 +4,7 @@
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Sources
-source "$SH_PATH_LIBS/get_variables.sh"
+source "$SH_PATH_LIB/get_variables.sh"
 
 test_getVariables(){
   test_and_assert --fnc "get_variables" -An "$@"

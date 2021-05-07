@@ -4,7 +4,7 @@
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Includes
-source "$SH_PATH_LIBS/array_equals.sh"
+source "$SH_PATH_LIB/array_equals.sh"
 
 test_arrayEquals() {
   TEST_METHOD='array_equals'

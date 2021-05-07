@@ -6,7 +6,7 @@
 #==============================================================================
 
 source ".launcher_profile_safe"
-source "$SH_PATH_LIBS/fill_line.sh"
+source "$SH_PATH_LIB/fill_line.sh"
 source "$SH_PATH_PACKS/output_helper.sh"
 source "$SH_DEBUG"
 

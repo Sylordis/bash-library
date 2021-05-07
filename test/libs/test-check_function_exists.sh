@@ -4,7 +4,7 @@
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Sources
-source "$SH_PATH_LIBS/check_function_exists.sh"
+source "$SH_PATH_LIB/check_function_exists.sh"
 
 # Auto launch function
 test_checkFunctionExists() {

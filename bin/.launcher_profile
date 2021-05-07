@@ -1,6 +1,6 @@
-export SH_PATH="$(readlink -f "$(dirname "${BASH_SOURCE[0]}")")"
+export SH_PATH="$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/..")"
 export SH_PATH_SRC="$SH_PATH/src"
-export SH_PATH_LIBS="$SH_PATH_SRC/libs"
+export SH_PATH_LIB="$SH_PATH_SRC/lib"
 export SH_PATH_COMPL="$SH_PATH_SRC/completion"
 export SH_PATH_PACKS="$SH_PATH_SRC/packages"
 export SH_PATH_TEST="$SH_PATH/test"

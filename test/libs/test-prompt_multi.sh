@@ -6,7 +6,7 @@ source "$SH_PATH_UTILS/testing_framework.sh"
 # Sources
 # Create temporary source without the /dev/tty
 MOCK="promptmulti"
-mocks_create "$SH_PATH_LIBS/prompt_multi.sh" "$MOCK" tty read
+mocks_create "$SH_PATH_LIB/prompt_multi.sh" "$MOCK" tty read
 source "$(mocks_get "$MOCK")"
 
 test_promptMulti() {

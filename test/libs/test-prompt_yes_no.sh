@@ -6,7 +6,7 @@ source "$SH_PATH_UTILS/testing_framework.sh"
 # Sources
 # Create mock of source without the /dev/tty
 MOCK="prompt_yes_no"
-mocks_create "$SH_PATH_LIBS/prompt_yes_no.sh" "$MOCK" tty read
+mocks_create "$SH_PATH_LIB/prompt_yes_no.sh" "$MOCK" tty read
 source "$(mocks_get "$MOCK")"
 
 test_promptYesNo() {

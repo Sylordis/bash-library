@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # Includes
-source "$SH_PATH_LIBS/in_array.sh"
+source "$SH_PATH_LIB/in_array.sh"
 
 #------------------------------------------------------------------------------
 # Forms a new array resulting of the subtraction of the second array from the

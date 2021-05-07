@@ -1,8 +1,8 @@
 #! /bin/bash
 
 # Includes
-source "$SH_PATH_LIBS/in_array.sh"
-source "$SH_PATH_LIBS/to_upper.sh"
+source "$SH_PATH_LIB/in_array.sh"
+source "$SH_PATH_LIB/to_upper.sh"
 
 #------------------------------------------------------------------------------
 # Changes the directory according to a local dynamic location or HOME variable.

@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 # Includes
 source "$SH_PATH_LIB/join_by.sh"
@@ -7,6 +7,8 @@ source "$SH_PATH_LIB/join_by.sh"
 # Prompts a question with multiple choices and returns once a choice has been
 # made or if the user cancels.
 # This function and its outputs will not be printed.
+# Params:
+#   $*    <choices..> Choices, multiple possible answers
 # Options:
 #  -ap <V>  Pattern in the failure message for the user's answer's placeholder
 #  -fm <V>  Specificies a failure message
@@ -15,8 +17,6 @@ source "$SH_PATH_LIB/join_by.sh"
 #             (default=comma)
 #  -nc      Forces the user to choose (no cancel)
 #   -q <V>  Specifies a prompt message for the question
-# Params:
-#   $*    Choices, multiple possible answers
 # Returns:
 #   The indexes of the answers, or the cancel option if the user cancelled or
 #   if the array was empty.

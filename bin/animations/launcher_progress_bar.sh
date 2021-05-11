@@ -1,6 +1,5 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
-#echo "Hello World, I am $USER at $HOST, nice to meet you!"
 COUNT=1
 
 title() {
@@ -8,7 +7,7 @@ title() {
   ((COUNT++))
 }
 
-source "$SH_PATH_ANIM/src/animation_progress_bar.sh"
+source "$SH_PATH_ANIM/animation_progress_bar.sh"
 
 tput civis
 
@@ -29,8 +28,8 @@ for v in "${values[@]}"; do
   [[ $v -lt 100 ]] && echo
 done
 title "Animated!"
-for v in $(seq 1 100); do
-  animation_progress_bar "[=]" "$v" 100 80
+for v in $(seq 1 10); do
+  animation_progress_bar "[=]" $(("$v" * 10)) 100 80
   sleep 0.01
 done
 for v in "${values[@]}"; do
@@ -39,8 +38,8 @@ for v in "${values[@]}"; do
   [[ $v -lt 100 ]] && echo
 done
 title "Animated with prefix!"
-for v in $(seq 1 100); do
-  animation_progress_bar -p "   my file " "[=]" "$v" 100 70
+for v in $(seq 1 10); do
+  animation_progress_bar -p "   my file " "[=]" $(("$v" * 10)) 100 70
   sleep 0.01
 done
 values=($(seq 10 54 300) 300)

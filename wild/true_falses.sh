@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 (true && true) && echo "true" || echo "false"
 (true && false) && echo "true" || echo "false"

@@ -1,14 +1,13 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
-# array_symmetric_diff()
 # Forms a new array containing the elements which are not present in both
-# given arrays. There is no assumption about the sorting of the resulting
-# array.
+# given arrays. R = A Δ B = ( A \ B ) ∪ (B \ A ).
+# There is no assumption about the order of elements in the resulting array.
 # Params:
-#   $1    First array name
-#   $2    Second array name
-#   $3    Resulting array name
+#   $1    <array1> First array name
+#   $2    <array2> Second array name
+#   $3    <result_array> Resulting array name
 # Returns:
 #   Nothing but creates a new variable containing an array with all differences
 #------------------------------------------------------------------------------

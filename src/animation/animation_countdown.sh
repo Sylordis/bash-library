@@ -1,10 +1,9 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
-# animation_countdown()
 # Displays a countdown.
 # Params:
-#   $1    Starting number of the countdown
+#   $1    <start> Starting number of the countdown
 # Options:
 #   -n    Display a new line at the end of the countdown.
 #   -d V  Delay between two counts

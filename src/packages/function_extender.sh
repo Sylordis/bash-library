@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #==============================================================================
 # This file can be sourced or included as is in a bash script.
@@ -15,7 +15,7 @@
 
 #------------------------------------------------------------------------------
 # apply_transformations()
-# Applies multiple transformations to a text, given the name of the required 
+# Applies multiple transformations to a text, given the name of the required
 # methods to apply. The methods have to accept the text as first argument.
 # Params:
 #   $1    Text to transform
@@ -114,7 +114,7 @@ get_extender_core() {
   case "$(to_lower "$1")" in
     base) core="BASE";;
      ext) core="EXT";;
-       *) echo "ERROR::$FUNCNAME: unknown core variable '$1'." >&2
+       *) echo "ERROR[$FUNCNAME]: unknown core variable '$1'." >&2
           exit 1
           ;;
   esac
@@ -194,13 +194,13 @@ launch_function_extension() {
   check_var_set FNC_EXT_NAME_PATTERN || return 1
   # Arg check
   if [[ $# -lt 2 ]]; then
-    echo "ERROR: launch_function_extension, wrong number of arguments." >&2
+    echo "ERROR[$FUNCNAME]: wrong number of arguments." >&2
     return 1
   fi
   local cmd
   cmd="$(get_function_extension_name "$1" "$2")"
   if ! check_function_exists "$cmd"; then
-    echo "ERROR: Program not set for extension '$cmd' of feature '$1'" >&2
+    echo "ERROR[$FUNCNAME]: program not set for extension '$cmd' of feature '$1'" >&2
     return 1
   fi
   eval "$cmd ${*:3}"

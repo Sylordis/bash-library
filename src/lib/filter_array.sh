@@ -1,12 +1,12 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
 # Filters an array according to given conditions, and creates a new array with
 # given name. If the operation fails (wrong input type), no array will be created.
 # Params:
-#   $1    Array to filter
-#   $2    Array resulting after filtering
-#   $3    Filter, a bash condition written in text, This filter will be
+#   $1    <array> Array to filter
+#   $2    <result> Array resulting after filtering
+#   $3    <filter> Filter, a bash condition written in text, This filter will be
 #         evaluated by bash. Usable patterns:
 #             %ARG%   current value being checked for filtering.
 #             %ARG_N% index of the current value.

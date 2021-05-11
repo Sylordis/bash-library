@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #==============================================================================
 # This file can be sourced or included as is in a bash script.
@@ -88,4 +88,42 @@ print_column() {
   done
   c_opts="$o_align$c_size"
   printf "%${c_opts}s%s" "$*" "$(margin "${COLUMNS_PADDING-3}")"
+}
+
+#------------------------------------------------------------------------------
+# Spans a message in a given message length, aligning to the left.
+# Does not output a zero character at the end.
+# Parameters:
+#   $1    Final length of the message
+#   $*    Strings to align
+#------------------------------------------------------------------------------
+span_left() {
+  printf "%-*s" "$1" "${*:2}"
+}
+
+#------------------------------------------------------------------------------
+# Spans a message in a given message length, aligning at the center.
+# Does not output a zero character at the end.
+# Parameters:
+#   $1    Final length of the message
+#   $*    Strings to align
+#------------------------------------------------------------------------------
+span_center() {
+  local msg="${*:2}" size
+  local pad_left pad_right
+  local size="$1"
+  pad_right=$((($size - ${#msg})/2))
+  pad_left=$(($size - ${#msg} - $pad_right))
+  printf '%*s%s%*s' "$pad_left" '' "$msg" "$pad_right" ''
+}
+
+#------------------------------------------------------------------------------
+# Spans a message in a given message length, aligning to the right.
+# Does not output a zero character at the end.
+# Parameters:
+#   $1    Final length of the message
+#   $*    Strings to align
+#------------------------------------------------------------------------------
+span_right() {
+  printf "%*s" "$1" "${*:2}"
 }

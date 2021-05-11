@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 # echo "Hello World, I am $USER at $HOST, nice to meet you!"
 

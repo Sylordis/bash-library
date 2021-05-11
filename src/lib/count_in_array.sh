@@ -1,12 +1,12 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
 # Counts how many times an element occurs in an array.
 # Params:
-#   $1    Needle - the value to search for
-#   $*    Haystack - all the values to search in
-#           Don't forget to surround this argument by quotes to prevent bash
-#           expansion of values (especially with star character)
+#   $1    <needle> the value to search for
+#   $*    <haystack..> all the values to search in
+#         Don't forget to surround these argument by quotes to prevent bash
+#         expansion of values (especially with star character)
 # Returns:
 #   The number of occurences of one token in the array, 0 if the array is empty
 #------------------------------------------------------------------------------

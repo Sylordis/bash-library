@@ -1,13 +1,14 @@
-#! /bin/bash
+#! /usr/bin/env bash
+
 
 #------------------------------------------------------------------------------
 # Checks if two arrays are the same.
 # Params:
-#   $1  First array name
-#   $2  Second array name
+#   $1  <array1> First array name
+#   $2  <array2> Second array name
 # Returns:
-#   0/true if both variables are arrays that contains the same values in the
-#   same order, 1/false otherwise.
+#   0/true if no arguments (empty arrays) or both variables are arrays that
+#   contains the same values in the same order, 1/false otherwise.
 #------------------------------------------------------------------------------
 array_equals() {
   local flag

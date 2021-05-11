@@ -1,10 +1,10 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
 # Changes all characters in a string to lowercase.
 # Apply any color tags after applying this method.
 # Params:
-#   $*    Any string
+#   $*    <strings..> Any string
 # Returns:
 #   The lowercased string.
 #------------------------------------------------------------------------------

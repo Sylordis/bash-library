@@ -1,7 +1,6 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
-# debug()
 # Will write messages to the console only, uncatchable by redirections.
 # Every argument will be appened to one line with 'echo -e'. If one of the
 # arguments given is a variable, the method will print its content, with a format
@@ -18,7 +17,7 @@
 #   DEBUG_MODE={0,1}            If set to 1, this method will not output anything.
 #                               Default value: 0.
 # Params:
-#   $*    Messages to log / variable names to dump
+#   $*    <args..> Messages to log / variable names to dump
 # Options:
 #   -t    Displays function tree call
 #   -np   Prevents prefix display

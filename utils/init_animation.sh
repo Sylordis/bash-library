@@ -1,4 +1,6 @@
-#! /bin/bash
+#! /usr/bin/env bash
+
+# Sets a clean exit trap to remove civis and applies civis at the beginning.
 
 clean_exit() {
   local ps_exit=$?

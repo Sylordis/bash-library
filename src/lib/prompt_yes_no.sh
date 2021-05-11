@@ -1,12 +1,14 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
 # Prompts a yes/no question until a correct choice has been made by the user.
-# This function and its outputs will not be printed.
+# This method and its outputs will be printed on /dev/tty, meaning they are
+# not redirectable.
 # Params:
-#   $1    Prompt message
-#  [$2]   Specific failure message (overrides the default message)
-#  [$3]   Pattern in the failure message for the user's answer's placeholder
+#   $1    <prompt-msg> Prompt message
+#  [$2]   [failure] Specific failure message (overrides the default message)
+#  [$3]   [failure-patt] Pattern in the failure message for the user's answer's
+#         placeholder
 # Returns:
 #   0/true if user answers yes, 1/false if he answers no
 #------------------------------------------------------------------------------

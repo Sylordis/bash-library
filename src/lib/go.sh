@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 # Includes
 source "$SH_PATH_LIB/in_array.sh"
@@ -11,13 +11,14 @@ source "$SH_PATH_LIB/to_upper.sh"
 # where every value is linked to a variable GO_DYN_PATH_{VALUE} which is a
 # command to execute.
 # Params:
-#   $1    Name of the LOCATION or HOME variable.
-#  [$*]   Path suffix. Will be added to path, each argument being a directory.
+#   $1    <location> Name of the LOCATION or HOME variable.
+#  [$*]   <suffixes..> Path suffix. Will be added to path, each argument being a
+#         directory.
 #------------------------------------------------------------------------------
 go() {
   if [[ $# -eq 0 ]]; then
-    echo "Nowhere to go sir!" >& 2
-    echo "Usage: go <location> [args]"
+    echo "ERROR[$FUNCNAME]: Nowhere to go sir!" >& 2
+    echo "Usage: go <location> [suffixes..]"
     return 1
   else
     # Getting location var
@@ -45,10 +46,10 @@ go() {
     else
       if [[ -n "$loc" ]] && [[ ! -d "$loc" ]]; then
         # Doesn't exist (physical)
-        echo "ERROR: Location '$loc' does not exist." >& 2
+        echo "ERROR[$FUNCNAME]: Location '$loc' does not exist." >& 2
       else
         # Doesn't exist (software)
-        echo "ERROR: Location '$1' not set nor valid." >& 2
+        echo "ERROR[$FUNCNAME]: Location '$1' not set nor valid." >& 2
       fi
       return 1
     fi

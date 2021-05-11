@@ -1,5 +1,17 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
-source "$SH_PATH_ANIM/helpers/init_animation.sh"
+source "$SH_PATH_UTILS/init_animation.sh"
 
-$SH_PATH/launch_bg_process.sh -v -t 8 -s $SH_PATH_ANIM/src/animation_ping_pong.sh animation_ping_pong
+args_bg=(-v)
+t=8
+while : ; do
+  case "$1" in
+    -nv) args_bg=();;
+     -t) t="$2"; shift;;
+      *) break;;
+  esac
+  shift
+done
+"$SH_PATH/tools/launch_bg_process.sh" "${args_bg[@]}" -t "$t" \
+    -s "$SH_PATH_ANIM/animation_ping_pong.sh" \
+    animation_ping_pong

@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 d_array() {
   echo "d_array($@): $0 $1 $2"

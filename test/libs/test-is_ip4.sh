@@ -1,14 +1,14 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 # Test includes
 source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Sources
-source "$SH_PATH_LIB/is_ip.sh"
+source "$SH_PATH_LIB/is_ip4.sh"
 
 # Auto launch function
 test_isIp() {
-  test_and_assert --fnc is_ip -psr -mb "$(printf "%-20s" "$2")" "$@"
+  test_and_assert --fnc is_ip4 -psr -mb "$(printf "%-20s" "$2")" "$@"
 }
 
 test_isIp 0 0.0.0.0

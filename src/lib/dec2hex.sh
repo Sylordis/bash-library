@@ -1,9 +1,10 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
 # Calculates the hexadecimal representation of a decimal number.
+# This method uses bc.
 # Params:
-#   $1    Decimal number to put in hexadecimal
+#   $1    <decimal> Decimal number to put in hexadecimal
 # Returns:
 #   The hexadecimal number
 #------------------------------------------------------------------------------

@@ -1,9 +1,9 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
 # Returns all variables which names matches the given pattern.
 # Params:
-#   $1    Pattern for variable names
+#   $1    <pattern> Pattern for variable names
 # Returns:
 #   A list of variables if they exist
 #------------------------------------------------------------------------------

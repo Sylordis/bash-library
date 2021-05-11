@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
 # Prints an operation result.
@@ -12,8 +12,8 @@
 #   -sf <MSG>    Suffix for failed operation message
 #   -ss <MSG>    Suffix for successful operation message
 # Params:
-#   $1    Process status exit (0 is success, > 0 is failure)
-#   $@    Arguments for echo (except -e)
+#   $1    <psexit> Process status exit (0 is success, > 0 is failure)
+#  [$*]   <echo-args> Arguments for echo (except -e)
 #------------------------------------------------------------------------------
 print_result() {
   local prefix_failure prefix_success suffix_failure suffix_success cmd

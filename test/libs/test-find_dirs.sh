@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 # Test includes
 source "$SH_PATH_UTILS/testing_framework.sh"

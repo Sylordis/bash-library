@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
 # Takes a string a replaces all patterns, which are enclosed by '__'. The pattern
@@ -7,7 +7,7 @@
 # Only characters allowed in patterns are uppercases characters and single
 # underscores.
 # Params:
-#   $1    Text to replace patterns in.
+#   $1    <string> Text to replace patterns in
 # Options:
 #   -p <V>  Sets a prefix for pattern values variable correspondance. Default is
 #           empty.

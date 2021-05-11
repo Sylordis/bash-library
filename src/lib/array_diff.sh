@@ -1,15 +1,15 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 # Includes
 source "$SH_PATH_LIB/in_array.sh"
 
 #------------------------------------------------------------------------------
 # Forms a new array resulting of the subtraction of the second array from the
-# first one. Preserves the order of elements.
+# first one (R = A1 - A2). Preserves the order of elements in the first array.
 # Params:
-#   $1    First array name
-#   $2    Second array name
-#   $3    Resulting array name
+#   $1    <array1> First array name
+#   $2    <array2> Second array name
+#   $3    <result_array> Resulting array name
 # Returns:
 #   Nothing but creates a new variable containing an array with the difference.
 #------------------------------------------------------------------------------

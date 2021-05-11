@@ -1,9 +1,9 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
-# Strips all color tags from a text.
+# Strips all colour tags from a string.
 # Params:
-#   $*    Text to strip
+#   $*    <string> String to strip colours from
 # Returns:
 #   The text without any color tags.
 #------------------------------------------------------------------------------

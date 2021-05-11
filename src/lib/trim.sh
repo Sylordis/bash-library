@@ -1,9 +1,9 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
 # Trim whitespaces and tabs both leading and trailing an expression.
 # Params:
-#   $*    Expressions to trim.
+#   $*    <string> Expressions to trim
 # Options:
 #   -l    Trim leading characters only
 #   -t    Trim trailing characters only

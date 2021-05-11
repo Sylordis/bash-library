@@ -1,9 +1,9 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
-# Calculates the decimal representation of an hex number.
+# Calculates the decimal representation of an hex number. This method uses bc.
 # Params:
-#   $1    Hex string to put to decimal
+#   $1    <hex> Hex string to put to decimal
 # Returns:
 #   The decimal version
 #------------------------------------------------------------------------------

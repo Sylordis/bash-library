@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#! /usr/bin/env bash
 
 #==============================================================================
 # This file can be sourced or included as is in a bash script.
@@ -29,10 +29,7 @@
 # <varname>=<propname>.
 # IMPORTANT: This method cannot set variables declared on an upper scope than
 # the one it is called from.
-# Options:
-#   -ne   Once the configuration file is loaded, will check that all variables
-#         are not set to empty value, or throws an error
-# Args:
+# Params:
 #   $1    Path to configuration file
 #         This argument can be composed as <path>:<blockname>
 #         If no blockname is specified, the entry [default] will be considered
@@ -43,6 +40,9 @@
 #         - cmd     the result of the command will be used as value. This script
 #                   does not manage the output of the command or any possible
 #                   nor error control
+# Options:
+#   -ne   Once the configuration file is loaded, will check that all variables
+#         are not set to empty value, or throws an error
 #------------------------------------------------------------------------------
 cfg_load_file_to_vars() {
   local file blockname block no_empty=1
@@ -63,13 +63,13 @@ cfg_load_file_to_vars() {
   fi
   # File readability check
   if [[ ! -r "$file" ]]; then
-    echo "ERROR: File does not exist or cannot be read." >& 2
+    echo "ERROR[$FUNCNAME]: File does not exist or cannot be read." >& 2
     return 1
   fi
   local file_integrity_ok=0
   # Config block check
   if ! grep -qF "[${blockname:-default}]" "$file"; then
-    echo "ERROR: No configuration found for [${blockname:default}] in '$file'." >& 2
+    echo "ERROR[$FUNCNAME]: No configuration found for [${blockname:default}] in '$file'." >& 2
     return 1
   else
     local name_opts block varname cfgvar value vartype
@@ -99,13 +99,13 @@ cfg_load_file_to_vars() {
     # Post processing checkup
     for var in "${!all_vars[@]}"; do
       if [[ $no_empty -eq 0 ]] && [[ -z "${!var}" ]]; then
-        echo "ERROR: '$var' not set (property '${all_vars[$var]}')." >& 2
+        echo "ERROR[$FUNCNAME]: '$var' not set (property '${all_vars[$var]}')." >& 2
         file_integrity_ok=1
       fi
     done
     # Final check if error
     if [[ $file_integrity_ok -eq 1 ]]; then
-      echo "ERROR: Loading '$file' resulted in incomplete variable setting." >& 2
+      echo "ERROR[$FUNCNAME]: Loading '$file' resulted in incomplete variable setting." >& 2
     fi
     unset all_vars
   fi
@@ -116,7 +116,7 @@ cfg_load_file_to_vars() {
 # Loads a configuration file block identified by a name. If no name is specified,
 # then the block "default" will be loaded.
 # Comments starting with # will be ignored.
-# Args:
+# Params:
 #   $1    File where to extract the block from
 #  [$2]   Block name ("default" if not specified)
 #------------------------------------------------------------------------------

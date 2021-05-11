@@ -1,11 +1,12 @@
-#! /bin/bash
+#! /usr/bin/env bash
+
 
 #------------------------------------------------------------------------------
 # Applies multiple transformations to a text, given the name of the required
 # methods to apply. The methods have to accept the text as first argument.
 # Params:
-#   $1    Text to transform
-#   $*    Methods to apply for transformation
+#   $1    <string> Text to transform
+#   $*    <fncs..> Methods to apply for transformation
 # Returns:
 #   The transformed text
 #------------------------------------------------------------------------------

@@ -1,12 +1,12 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
 # Repeats the same command multiple times through an eval interpretation. This
 # function does not manage the errors caused by the interpreted commands and
 # will not stop until it reached the correct count.
 # Params:
-#   $1    Number of repetitions.
-#   $*    Command(s) to be repeated
+#   $1    <n> Number of repetitions.
+#   $*    <cmd> Command to be repeated
 #------------------------------------------------------------------------------
 do_repeat() {
   # Check if first argument is a number

@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 # All declared mocks
 declare -A MOCKS
@@ -6,7 +6,7 @@ declare -A MOCKS
 #------------------------------------------------------------------------------
 # Removes all non supported caracters from a string.
 # Params:
-#   $*    Text to normalize
+#   $*    <strings..>Text to normalize
 # Returns:
 #   The normalized text.
 #------------------------------------------------------------------------------

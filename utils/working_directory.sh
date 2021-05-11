@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #==============================================================================
 # This helper is used to create a test working directory where all files needed
@@ -23,7 +23,7 @@ WD_clean() { working_directory_clean "$@"; }
 #------------------------------------------------------------------------------
 # Creates test files in the working directory. Also deletes any previous working
 # directory created.
-# Args:
+# Params:
 #   $*    Files to create in the working directory
 #  [-d]   Files after this flag will be created as directories
 #  [-f]   Files after this flag will be created as empty files
@@ -34,7 +34,7 @@ working_directory_create() {
   if [[ ! -d "$TEST_WORKING_DIR" ]]; then
     TEST_WORKING_DIR="$(mktemp -d "$TEST_WORKING_DIR.XXXX")"
     if [[ ! -d "$TEST_WORKING_DIR" ]]; then
-      echo "ERROR: working directory cannot be created"
+      echo "ERROR[$FUNCNAME]: working directory cannot be created" >& 2
       exit 1
     fi
   fi
@@ -70,7 +70,7 @@ WD_del() { working_directory_delete "$@"; }
 
 #------------------------------------------------------------------------------
 # Returns the working directory path.
-# Args:
+# Params:
 #   $1    File name to be append to the path of the working directory
 #------------------------------------------------------------------------------
 working_directory_get_path() {

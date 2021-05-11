@@ -1,10 +1,9 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
-# animation_fish()
 # Displays an animated fish.
 # Params:
-#  [$1]   Total line length to fill (default=terminal columns)
+#  [$1]   [length] Total line length to fill (default=terminal columns)
 # Options:
 #   -pid <PID>  PID of the program to wait for
 #------------------------------------------------------------------------------
@@ -24,7 +23,6 @@ animation_fish() {
   done
   line_length="$1"
   [[ -z $line_length ]] && line_length=$(tput cols)
-  debug line_length pid
   while [[ -z "$pid" ]] || grep -q "$pid" <<< "$(ps -ef | awk '{print $2}')"; do
     # Check borders
     if [[ "$direction" == right ]] && [[ $((curr_pos+${#animations_right[fish_index]})) -ge $line_length ]]; then

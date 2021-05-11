@@ -1,11 +1,12 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #==============================================================================
 # This is a launcher for all unit tests in this repository.
 # It will scan all files starting with "test-" and run them.
 #==============================================================================
 
-source ".launcher_profile_safe"
+# Source files
+source "$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/..")/bin/.launcher_profile_safe"
 source "$SH_PATH_LIB/fill_line.sh"
 source "$SH_PATH_PACKS/output_helper.sh"
 source "$SH_DEBUG"

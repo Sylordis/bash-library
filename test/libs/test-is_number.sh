@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 # Helpers includes
 source "$SH_PATH_UTILS/testing_framework.sh"
@@ -19,5 +19,5 @@ test_isNumber 0 0.1
 test_isNumber 1 5.
 test_isNumber 1 .3
 test_isNumber 1 a
-test_isNumber 1 ./*
+test_isNumber 1 './*'
 test_isNumber 1 "#"

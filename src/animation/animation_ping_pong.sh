@@ -1,19 +1,26 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
 # animation_ping_pong()
 # Displays an animated ball.
-# Params:
-#  [$1]   PID of process to wait on
+# Options:
+#   -pid <PID>  PID of the program to wait for
 #------------------------------------------------------------------------------
 animation_ping_pong() {
-  local pause="0.25"
   # Characters used for the spinner in order
-  local chars='⚬⚪⦾⚪⚬'
-  local direction=1
-  local i=0
+  local chars='○◎◯◎○'
+  local direction=1 i=0 pause="0.25"
+  local pid
+  # Options check
+  while : ; do
+    case "$1" in
+      -pid) pid="$2"; shift;;
+         *) break;;
+    esac
+    shift
+  done
   # Real spinning part
-  while [[ -z "$1" ]] || grep -q "$1" <<< "$(ps -ef | awk '{print $2}')"; do
+  while [[ -z "$pid" ]] || grep -q "$pid" <<< "$(ps -ef | awk '{print $2}')"; do
     printf "%${i}s%1s%$((${#chars}-i-1))s\r" "" "${chars:i:1}" ""
     if [[ "$direction" -eq 1 ]] && [[ $i -ge $((${#chars}-1)) ]]; then
       direction=-1

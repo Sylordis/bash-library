@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 # This script will distribute (or delete) a file at the same path on every given hosts.
 # It does not check if the target directory exists or not.

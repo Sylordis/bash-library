@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 # This script allows to monitor several processes, i.e. launching a top process for the processes id corresponding to the processes names.
 

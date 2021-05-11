@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 # Create fake binaries which will basically do nothing but sit there being pretty.
 # Will not override files unless force provided.
@@ -41,7 +41,7 @@ for binary; do
   fi
   # Create file
   echo -e \
-  "#! /bin/bash
+  "#! /usr/bin/env bash
 
 while : ; do
   echo -en \"$binary \$(date)\\\\r\"

@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #==============================================================================
 # This file can be sourced or included as is in a bash script.
@@ -247,7 +247,7 @@ logger_configure() {
               -s) _logger_set_saving_method "$2"; shift; fileset=0;;
         --type=*) _logger_set_output_type "${1##--type=}";;
               -t) _logger_set_output_type "$2"; shift;;
-               *) echo "ERROR[logger]: unknown setting '$1'." >& 2; estatus=1;;
+               *) echo "ERROR[$FUNCNAME]: unknown setting '$1'." >& 2; estatus=1;;
     esac
     # Check if error happened and not already set
     [[ $estatus -eq 0 ]] && estatus=$?

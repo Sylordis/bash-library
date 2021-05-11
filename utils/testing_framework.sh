@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 # Inherit traps from all sources
 set -o functrace
@@ -76,7 +76,7 @@ TEST_passed() {
 # Default test function that tests provided method returns expected result.
 # Method under test can either be provided through option -f or via the global
 # variable TEST_METHOD.
-# Args:
+# Params:
 #   $1    Expected result
 #   $*    Arguments for command
 # Options:
@@ -120,7 +120,7 @@ test_and_assert() {
   [[ -z "$_fnc" ]] && _fnc="$TEST_METHOD"
   # Check if there's something to test
   if [[ -z "$_fnc" ]]; then
-    echo "ERROR: No function to test. Use -f, --_fnc or TEST_METHOD variable." >& 2
+    echo "ERROR[$FUNCNAME]: No function to test. Use -f, --_fnc or TEST_METHOD variable." >& 2
     return 1
   fi
   # Test
@@ -166,12 +166,12 @@ test_and_assert() {
 # assert()
 # Asserts a result according to the expectations, and maintain the statistics
 # about the tests.
-# Options:
-#   -l    Displays the length of each result (and expected)
-#   -n    Prints each print on a new line
 # Params:
 #   $1    Expected result (use $'text' for new lines and special characters)
 #   $2    Actual result
+# Options:
+#   -l    Displays the length of each result (and expected)
+#   -n    Prints each print on a new line
 #------------------------------------------------------------------------------
 assert() {
   # Options setting
@@ -188,7 +188,7 @@ assert() {
   done
   # If arguments lower than 2, exit
   if [[ $# -lt 2 ]]; then
-    echo "ERROR: assert() failure, expected 2 arguments, got $#." >& 2
+    echo "ERROR[$FUNCNAME]: expected 2 arguments, got $#." >& 2
     TEST_failed
     return
   fi

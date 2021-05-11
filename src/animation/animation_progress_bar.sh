@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 # Includes
 source "$SH_PATH_LIB/strip_color_tags.sh"
@@ -9,15 +9,16 @@ source "$SH_PATH_LIB/strip_color_tags.sh"
 # will erase previous bar if it's still on the same line, except when it reaches
 # completion (100%), whhere it will display a new line instead.
 # Params:
-#   $1    Format of progress bar, with beginning, filling and ending characters
+#   $1    <bar> Format of progress bar, with beginning, filling and ending
+#         characters.
 #         Default end filling character is white space
-#         ex: [=]   will output [===     ]
-#             [#=]  will output [###=====]
-#             [# ]  will output [###     ]
-#             [#-]  will output [###-----]
-#   $2    Current amount
-#   $3    Total amount
-#  [$4]   Length of the line (in characters)
+#         ex: `[=]`   will output `[===     ]`
+#             `[#=]`  will output `[###=====]`
+#             `[# ]`  will output `[###     ]`
+#             `[#-]`  will output `[###-----]`
+#   $2    <current> Current amount
+#   $3    <total> Total amount
+#  [$4]   [length] Length of the line (in characters)
 # Options:
 #   -%          Display total show_percentages after the bar, counts in total length
 #   -n          Do not display a new line if reaching completion but go back to

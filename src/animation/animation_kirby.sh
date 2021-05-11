@@ -1,7 +1,6 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
-# animation_kirby()
 # Displays a dancing kirby.
 # Options:
 #   -pid <PID>  PID of the program to wait for
@@ -10,7 +9,8 @@ animation_kirby() {
   local curr pause pid
   curr=0
   animation_size=10
-  kirby=("(>^-^)>" "<(^-^)>" "<(^-^<)" "^(^-^)^" "<(^-^)>" "v(^-^)v" "<(^-^)>" " <(^-^)>" "<(^-^)>" "\b<(^-^)>" "<(^-^)>")
+  kirby=("(>^-^)>" "<(^-^)>" "<(^-^<)" "^(^-^)^" "<(^-^)>" "v(^-^)v" "<(^-^)>" \
+         " <(^-^)>" "<(^-^)>" "\b<(^-^)>" "<(^-^)>")
   pause=0.5
   while : ; do
     case "$1" in

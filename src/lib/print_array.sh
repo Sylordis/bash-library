@@ -1,9 +1,9 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
 # Transforms an array into a proper string representation.
 # Params:
-#   $*    Elements of the array
+#   $*    <values..> Elements of the array
 # Returns:
 #   The string representation of the array
 #------------------------------------------------------------------------------

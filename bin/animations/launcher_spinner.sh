@@ -1,6 +1,6 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
-source "$SH_PATH_ANIM/helpers/init_animation.sh"
+source "$SH_PATH_UTILS/init_animation.sh"
 
 t=3
 args=()
@@ -15,4 +15,6 @@ if [[ $# -ne 0 ]]; then
     exit 1
   fi
 fi
-$SH_PATH/launch_bg_process.sh -v -t $t -s $SH_PATH_ANIM/src/animation_spinner.sh animation_spinner "${args[@]}"
+$SH_PATH/tools/launch_bg_process.sh -v -t $t \
+    -s "$SH_PATH_ANIM/animation_spinner.sh" \
+    animation_spinner "${args[@]}"

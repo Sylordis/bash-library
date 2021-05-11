@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 # Includes
 source "$SH_PATH_LIB/is_number.sh"
@@ -7,7 +7,7 @@ source "$SH_PATH_LIB/is_number.sh"
 # Returns the biggest element in a set of values. By default only takes
 # numbers, but options can change that.
 # Params:
-#   $*    Haystack - All values to consider
+#   $*    <haystack..> All values to search in
 # Options:
 #   -tl   Also considers the length of strings in the array. Default with -tlo option.
 #   -tlo  Considers the length of texts only.

@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 # Helpers
 source $SH_PATH_UTILS/testing_framework.sh

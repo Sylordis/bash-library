@@ -1,9 +1,9 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
-# Returns the first longest amongst all provided entries.
+# Returns the first longest value amongst all provided entries.
 # Params:
-#   $*    Entries to compare
+#   $*    <haystack..> Entries to compare
 # Options:
 #   -i    Will return the index of the longest (-1 if no value)
 #   -s    Will return the size of the longest (0 if no value)

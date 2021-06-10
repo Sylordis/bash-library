@@ -81,7 +81,12 @@ debug() {
             _msg+="$1=($(printf '"%s" ' "${_array[@]}")\b)|${#_array[@]}|";;
         -A) # Associative arrays, reformat a bit and add cardinality
             local -n _array="$1"
-            _msg+="$(cut -d ' ' -f 3- <<< "$_data")\b\b)|${#_array[@]}|";;
+            # Empty associate arrays do not have values
+            if [[ ${#_array[@]} -eq 0 ]]; then
+              _msg+="$1=()|0|"
+            else
+              _msg+="$(cut -d ' ' -f 3- <<< "$_data")\b\b)|${#_array[@]}|"
+            fi;;
          *) # Normal case, just take the dump from declare
             _msg+="$(cut -d ' ' -f 3- <<< "$_data")";;
       esac

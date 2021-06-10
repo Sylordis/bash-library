@@ -41,14 +41,20 @@
 #                   does not manage the output of the command or any possible
 #                   nor error control
 # Options:
+#   --log <cmd>
+#         Logger command, default is 'echo ERROR[$FUNCNAME]'
+#         If replaced, pattern %FUNCNAME% can be used to be replaced by
+#         the actual function name.
 #   -ne   Once the configuration file is loaded, will check that all variables
 #         are not set to empty value, or throws an error
 #------------------------------------------------------------------------------
 cfg_load_file_to_vars() {
   local file blockname block no_empty=1
+  local _logger="echo ERROR[$FUNCNAME]:"
   # Options parsing
   while : ; do
     case "$1" in
+    --log) _logger="${2//'%FUNCNAME%'/$FUNCNAME}"; shift;;
       -ne) no_empty=0;;
         *) break;;
     esac
@@ -63,13 +69,13 @@ cfg_load_file_to_vars() {
   fi
   # File readability check
   if [[ ! -r "$file" ]]; then
-    echo "ERROR[$FUNCNAME]: File does not exist or cannot be read." >& 2
+    $_logger "File '$file' does not exist or cannot be read." >& 2
     return 1
   fi
   local file_integrity_ok=0
   # Config block check
   if ! grep -qF "[${blockname:-default}]" "$file"; then
-    echo "ERROR[$FUNCNAME]: No configuration found for [${blockname:default}] in '$file'." >& 2
+    $_logger "No configuration found for [${blockname:default}] in '$file'." >& 2
     return 1
   else
     local name_opts block varname cfgvar value vartype
@@ -99,13 +105,13 @@ cfg_load_file_to_vars() {
     # Post processing checkup
     for var in "${!all_vars[@]}"; do
       if [[ $no_empty -eq 0 ]] && [[ -z "${!var}" ]]; then
-        echo "ERROR[$FUNCNAME]: '$var' not set (property '${all_vars[$var]}')." >& 2
+        $_logger "'$var' not set (property '${all_vars[$var]}')." >& 2
         file_integrity_ok=1
       fi
     done
     # Final check if error
     if [[ $file_integrity_ok -eq 1 ]]; then
-      echo "ERROR[$FUNCNAME]: Loading '$file' resulted in incomplete variable setting." >& 2
+      $_logger "Loading '$file' resulted in incomplete variable setting." >& 2
     fi
     unset all_vars
   fi

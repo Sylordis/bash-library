@@ -1,3 +1,5 @@
+# This file defines variables to use this bash framework. It will erase previously
+# set variables with the same names.
 export SH_PATH="$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/..")"
 export SH_PATH_SRC="$SH_PATH/src"
 export SH_PATH_ANIM="$SH_PATH_SRC/animation"

@@ -9,6 +9,12 @@
 # Params:
 #   $1    <string> Text to replace patterns in
 # Options:
+#   -d <delim>
+#           Sets the pattern delimiters (both begin and end).
+#   -db <delim>
+#           Sets the pattern beginning delimiter.
+#   -de <delim>
+#           Sets the pattern ending delimiter.
 #   -p <V>  Sets a prefix for pattern values variable correspondance. Default is
 #           empty.
 # Returns:
@@ -22,6 +28,9 @@ replace_patterns() {
   # Option parsing
   while : ; do
     case "$1" in
+      -d) o_delim_b="$2"; o_delim_e="$2"; shift;;
+     -db) o_delim_b="$2"; shift;;
+     -de) o_delim_e="$2"; shift;;
       -p) o_prefix="$2"; shift;;
        *) break;;
     esac
@@ -31,7 +40,7 @@ replace_patterns() {
   local txt patt value patt_var
   txt="$1"
   # Get all patterns
-  patterns=($(grep -o -Ee "$o_delim_b([A-Z]+_)*[A-Z]+$o_delim_e" <<< "$1" | sort -u))
+  patterns=($(grep -o -Ee "$o_delim_b([A-Z0-9]+_)*[A-Z0-9]+$o_delim_e" <<< "$1" | sort -u))
   for patt in "${patterns[@]}"; do
     # Get variable name corresponding to the pattern
     patt_var="$(sed -re "s&^$o_delim_b(.*)$o_delim_e\$&\1&g" <<< "$patt")"

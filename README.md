@@ -26,4 +26,15 @@ Each proposed library has its own documentation, read it carefully before using 
 - `.launcher_profile` (and its `safe` counterpart) allow to dynamically create environment variables to use all libs in this repo.
   - The `safe` version prevents from overriding your own environment, but does not output any error. It is sourced in both `launcher.sh` and `source_libs.sh` files.
 
+A small excerpt from my `.bashrc` to use this repo:
+```sh
+export SH_PATH=~/scripts/main
+source "$SH_PATH/bin/source_libs.sh"
+export SH_DEBUG="$SH_PATH_UTILS/debug.sh"
+source "$SH_DEBUG"
+
+alias reload='source ~/.bashrc'
+alias bashtest='$SH_PATH/bin/launcher.sh'
+```
+
 Have fun, stay scripty!

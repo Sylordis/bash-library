@@ -172,16 +172,19 @@ test_and_assert() {
 # Options:
 #   -l    Displays the length of each result (and expected)
 #   -n    Prints each print on a new line
+#   -v    Compares the definition of the variable names provided
 #------------------------------------------------------------------------------
 assert() {
   # Options setting
   local newline=$FALSE
   local show_length=$FALSE
+  local variable_comparison=$FALSE
   local o_ps_ret=1
   while : ; do
     case "$1" in
       -l) show_length=$TRUE;; # -l prints the length of the results
       -n) newline=$TRUE;;     # -n puts every text on a new line
+      -v) variable_comparison=$TRUE;;
        *) break;;
     esac
     shift
@@ -193,15 +196,20 @@ assert() {
     return
   fi
   local _result _expected
-  _result="$2"
-  # Print results
-  if grep -oqE "%%ERROR_[^%]+%%" <<< "$1"; then
-    local error_type arguments
-    error_type="$(echo "$1" | sed -re 's/^%%ERROR_([^%]+)%% .*$/\1/g')"
-    arguments="$(echo "$1" | cut -d " " -f 2-)"
-    _expected="$(eval "TEST_error $error_type $arguments")"
+  if is_true $variable_comparison; then
+    _result="$(declare -p "$2" 2> /dev/null | cut -d ' ' -f '3-')"
+    _expected="$(declare -p "$1" 2> /dev/null | cut -d ' ' -f '3-')"
   else
-    _expected="$1"
+    _result="$2"
+    # Print results
+    if grep -oqE "%%ERROR_[^%]+%%" <<< "$1"; then
+      local error_type arguments
+      error_type="$(echo "$1" | sed -re 's/^%%ERROR_([^%]+)%% .*$/\1/g')"
+      arguments="$(echo "$1" | cut -d " " -f 2-)"
+      _expected="$(eval "TEST_error $error_type $arguments")"
+    else
+      _expected="$1"
+    fi
   fi
   echo -en "expected=[${_expected}]"
   is_true $show_length && echo -n " |${#_expected}|"

@@ -4,14 +4,16 @@ A repo of useful libraries that I've been creating through the years to make bas
 (Yes, I know, `zsh` exists and all, but its not the point, feel free to adapt).
 
 It offers:
-- libraries (to be sourced)
-- packages (to be sourced)
-- some completion scripts (incl. for *some* previous items listed, to be sourced)
-- animation scripts (to be sourced)
-  - ... and launchers for those animations to have a preview and how to use them (kind of)
-- utility scripts (incl `debug.sh` and bash unit testing framework)
-- some wild bash tests to be kept for information and posterity
-- some misc tools
+- libraries (to be sourced).
+- packages (to be sourced).
+- some completion scripts (incl. for *some* previous items listed, to be sourced).
+- animation scripts (to be sourced).
+  - ... and launchers for those animations to have a preview and how to use them (kind of).
+- utility scripts (incl `debug.sh` and bash unit testing framework).
+- Third party software helpers (`tools-lib`) to add extra commands to them or
+  ease their use (to  be sourced).
+- some wild bash tests to be kept for information and posterity.
+- some misc tools.
 
 Most of those scripts are kept up-to-date at various times but I try to maintain it to date with latest bash versions.
 

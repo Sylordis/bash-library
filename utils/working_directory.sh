@@ -21,15 +21,43 @@ working_directory_clean() {
 WD_clean() { working_directory_clean "$@"; }
 
 #------------------------------------------------------------------------------
-# Creates test files in the working directory. Also deletes any previous working
-# directory created.
+# Creates test files in the working directory.
 # Params:
 #   $*    Files to create in the working directory
 #  [-d]   Files after this flag will be created as directories
 #  [-f]   Files after this flag will be created as empty files
 #------------------------------------------------------------------------------
+working_directory_add() {
+  cd "$TEST_WORKING_DIR"
+  local var
+  for var; do
+    case "$var" in
+     -d) dir=0 ;;
+     -f) dir=1 ;;
+      *) if [[ "$dir" -eq 0 ]]; then
+           mkdir -p "$var"
+         else
+           touch "$var"
+         fi;;
+    esac
+    shift
+  done
+}
+# Shortcut alias
+WD_add() { working_directory_add "$@"; }
+
+#------------------------------------------------------------------------------
+# Deletes previous working directory and creates a new one.
+# Params:
+#   $*    Files to create in the working directory
+#  [-d]   Files after this flag will be created as directories
+#  [-f]   Files after this flag will be created as empty files
+# See:
+#   working_directory_add
+#   working_directory_delete
+#------------------------------------------------------------------------------
 working_directory_create() {
-  local dir=1
+  local dir=0
   working_directory_delete
   if [[ ! -d "$TEST_WORKING_DIR" ]]; then
     TEST_WORKING_DIR="$(mktemp -d "$TEST_WORKING_DIR.XXXX")"
@@ -38,20 +66,7 @@ working_directory_create() {
       exit 1
     fi
   fi
-  cd "$TEST_WORKING_DIR"
-  local var
-  for var; do
-    case "$var" in
-     -d) dir=1 ;;
-     -f) dir=0 ;;
-      *) if [[ "$dir" -eq 1 ]]; then
-           mkdir -p "$var"
-         else
-           touch "$var"
-         fi;;
-    esac
-    shift
-  done
+  working_directory_add "$@"
 }
 # Shortcut alias
 WD_create() { working_directory_create "$@"; }
@@ -86,16 +101,39 @@ WD_get_path() { working_directory_get_path "$@"; }
 WD_path() { working_directory_get_path "$@"; }
 
 #------------------------------------------------------------------------------
-# Prints a tree of the working directory.
+# Prints the working directory (through find)
 # Options:
-#   -d    Prints directories only
+#   -d      Prints directories only
+#   -f      Print files only
 #------------------------------------------------------------------------------
 working_directory_print() {
+  local find_args
+  while : ; do
+    case "$1" in
+      -d) find_args='-type d';;
+      -f) find_args='-type f';;
+       *) break;;
+    esac
+    shift
+  done
+  (
+    cd "$TEST_WORKING_DIR"
+    find . $find_args
+  )
+}
+# Shortcut aliases
+WD_print() { working_directory_print "$@"; }
+
+#------------------------------------------------------------------------------
+# Prints a tree of the working directory.
+# Options:
+#   -d      Prints directories only
+#------------------------------------------------------------------------------
+working_directory_tree() {
   (
     cd "$TEST_WORKING_DIR"
     tree -aC "$@"
   )
 }
-# Shortcut aliases
-WD_print() { working_directory_print "$@"; }
-WD_tree() { working_directory_print "$@"; }
+# Shortcut alias
+WD_tree() { working_directory_tree "$@"; }

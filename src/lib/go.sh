@@ -1,19 +1,20 @@
 #! /usr/bin/env bash
 
 # Includes
-source "$SH_PATH_LIB/in_array.sh"
 source "$SH_PATH_LIB/to_upper.sh"
 
 #------------------------------------------------------------------------------
 # Changes the directory according to a local dynamic location or HOME variable.
 # They should be according to the form: {VAR}_HOME.
-# You can also declared an array of dynamic pathes, called GO_DYN_PATHS,
-# where every value is linked to a variable GO_DYN_PATH_{VALUE} which is a
-# command to execute.
+# You can also declare dynamic pathes which will hold a command that go will
+# execute, every path being a variable named GO_DYN_PATH_{NAME}. Dynamic paths
+# are checked before home variables and will override them if having the same
+# name/var.
 # Params:
 #   $1    <location> Name of the LOCATION or HOME variable.
-#  [$*]   <suffixes..> Path suffix. Will be added to path, each argument being a
-#         directory.
+#  [$*]   <suffixes..> Path suffix for home variables that Will be added to path
+#           each argument being a directory or additional arguments to provide to
+#           dynamic paths.
 #------------------------------------------------------------------------------
 go() {
   if [[ $# -eq 0 ]]; then
@@ -23,10 +24,11 @@ go() {
   else
     # Getting location var
     local loc=""
-    if in_array "$1" "${GO_DYN_PATHS[@]}"; then
+    local dyn_path="$(declare -p "GO_DYN_PATH_$(to_upper "$1")"  2> /dev/null)"
+    if [[ -n "$dyn_path" ]]; then
       # Dynamic path: get the path from an expression
       loc="GO_DYN_PATH_$(to_upper "$1")"
-      loc="$(eval "${!loc} ${*:2}")"
+      loc="$(eval "${!loc}" "${@:2}")"
     else
       # Usual: get the HOME variable
       loc="$(to_upper "$1")_HOME"
@@ -36,7 +38,7 @@ go() {
     if [[ -n "$loc" ]] && [[ -d "$loc" ]]; then
       local path="$loc"
       # Add arguments as folders except if it's a dynamic path
-      if ! in_array "$1" "${GO_DYN_PATHS[@]}"; then
+      if [[ -z "$dyn_path" ]]; then
         local arg
         for arg in "${@:2}"; do
           path+="/$arg"

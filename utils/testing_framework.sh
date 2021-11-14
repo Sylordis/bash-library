@@ -80,7 +80,7 @@ TEST_passed() {
 #   $1    Expected result
 #   $*    Arguments for command
 # Options:
-#   -A<X>|-A <X>      Where X is an option for assert()
+#   -A<X>|-A <X>      Where X is all options for assert
 #   --exp-colours     Takes cares of colour comparisons in expected results
 #   -f <F>|--_fnc <F>  Method under test that will be evaluated
 #   --feed <feed>     Pipes the food to given method as text
@@ -92,7 +92,8 @@ TEST_passed() {
 #   +psr<S>           Adds the process exit status at the end of the result,
 #                     separated with <S> string
 #   --with-errors     Captures the err stream in std
-#
+#             --      All arguments after this option will be considered for the
+#                     command to test.
 #------------------------------------------------------------------------------
 test_and_assert() {
   local _fnc _ps_ret
@@ -112,7 +113,8 @@ test_and_assert() {
       +psr*) o_ps_ret=0
              o_ps_ret_sep="${1##+psr}";;
    --with-errors) o_collect_errors=0;;
-       *) break;;
+         --) shift ;&
+          *) break;;
     esac
     shift
   done

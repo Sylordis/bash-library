@@ -43,6 +43,7 @@ apply_transformations() {
 check_function_exists() {
   local typecheck
   typecheck="$(type -t "$1" 2> /dev/null)"
+  #shellcheck disable=SC2181
   [[ $? -eq 0 ]] && [[ "$typecheck" == "function" ]]
 }
 
@@ -146,7 +147,8 @@ get_extender_pattern_value() {
   core="$(get_extender_core "$1")"
   patt="$(get_extender_pattern "$1")"
   declaration="$(grep -o "$patt" <<< "$FNC_EXT_NAME_PATTERN" | sed -re "s/%([^%]+)%/\1/g")"
-  elements=($(echo "${declaration##${core}}" | tr : ' '))
+  debug core patt declaration
+  elements=($(echo "${declaration##"${core}"}" | tr : ' '))
   replacement="$(apply_transformations "$2" "${elements[@]}")"
   unset elements
   echo "$replacement"

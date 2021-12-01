@@ -78,7 +78,7 @@ cfg_load_file_to_vars() {
     $_logger "No configuration found for [${blockname:default}] in '$file'." >& 2
     return 1
   else
-    local name_opts block varname cfgvar value vartype
+    local block varname cfgvar value vartype
     declare -A all_vars
     block="$(cfg_load_block "$file" "$blockname")"
     for var in "${@:2}"; do
@@ -98,6 +98,7 @@ cfg_load_file_to_vars() {
         file|FILE) value="${value/#~/$HOME}"
                   [[ -r "${value}" ]] && refvarname="$(cat "${value}")";;
           cmd|CMD) refvarname="$(eval "${value}")";;
+              #shellcheck disable=SC2034 reference variable
                 *) refvarname="$value";;
       esac
       all_vars[$varname]="$cfgvar"

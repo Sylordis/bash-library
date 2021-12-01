@@ -83,6 +83,7 @@ prompt_multi() {
     fi
     while :; do
       # Pop the question
+      #shellcheck disable=SC2162 `-r` screwes up everything
       read -p "$prompt_msg" answer
       # Check if total answer is correct
       # Cut answer according to separator

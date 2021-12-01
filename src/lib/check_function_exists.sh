@@ -10,5 +10,6 @@
 check_function_exists() {
   local typecheck
   typecheck="$(type -t "$1" 2> /dev/null)"
+  #shellcheck disable=SC2181
   [[ $? -eq 0 ]] && [[ "$typecheck" == "function" ]]
 }

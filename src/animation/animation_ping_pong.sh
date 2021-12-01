@@ -1,7 +1,6 @@
 #! /usr/bin/env bash
 
 #------------------------------------------------------------------------------
-# animation_ping_pong()
 # Displays an animated ball.
 # Options:
 #   -pid <PID>  PID of the program to wait for

@@ -24,9 +24,9 @@ foo() {
 test_doRepeat "" 0 foo
 test_doRepeat "" -1 foo
 test_doRepeat "" a foo
+test_doRepeat "" 2
 
 test_doRepeat $'bar\nbar\nbar' 3 foo
-test_doRepeat "" 2
 test_doRepeat "$_cmd_not_found_msg
 $_cmd_not_found_msg
 $_cmd_not_found_msg

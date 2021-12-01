@@ -15,5 +15,6 @@ array_symmetric_diff() {
   local -n _array1="$1"
   local -n _array2="$2"
   local -n _array_res="$3"
+  # shellcheck disable=SC2034
   IFS=$'\n\t' _array_res=($(comm -3 <(printf '%s\n' "${_array1[@]}") <(printf '%s\n' "${_array2[@]}")))
 }

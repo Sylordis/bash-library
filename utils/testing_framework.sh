@@ -12,8 +12,8 @@ TRUE=0
 FALSE=1
 
 # Tests results
-FAILED_TESTS=0
-PASSED_TESTS=0
+TESTF_FAILED_TESTS=0
+TESTF_PASSED_TESTS=0
 
 # Trap for a normal exit
 clean_exit() {
@@ -48,8 +48,9 @@ TEST_error() {
   local err="$1"
   shift
   case "$err" in
+    CMD_NOT_FOUND) ret="$1: line $2: $3: command not found";;
     DIR_NOT_FOUND) ret="Directory $1 doesn't exist";;
-    CMD_NOT_FOUND) ret="$1: line $2: $3: command not found"
+    NO_FILE_OR_DIR) ret="$1: cannot $1 '$2': No such file or directory";;
   esac
   echo "$ret"
 }
@@ -60,7 +61,7 @@ TEST_error() {
 #------------------------------------------------------------------------------
 TEST_failed() {
   echo -e "\e[91mfailed\e[0m"
-  ((FAILED_TESTS++))
+  ((TESTF_FAILED_TESTS++))
 }
 
 #------------------------------------------------------------------------------
@@ -69,7 +70,7 @@ TEST_failed() {
 #------------------------------------------------------------------------------
 TEST_passed() {
   echo -e "\e[92mpassed\e[0m"
-  ((PASSED_TESTS++))
+  ((TESTF_PASSED_TESTS++))
 }
 
 #------------------------------------------------------------------------------
@@ -82,7 +83,7 @@ TEST_passed() {
 # Options:
 #   -A<X>|-A <X>      Where X is all options for assert
 #   --exp-colours     Takes cares of colour comparisons in expected results
-#   -f <F>|--_fnc <F>  Method under test that will be evaluated
+#   -f <F>|--fnc <F>  Method under test that will be evaluated
 #   --feed <feed>     Pipes the food to given method as text
 #   -mb <msg>         Prints a message before the test
 #   --out <output>|--output <output>
@@ -92,7 +93,7 @@ TEST_passed() {
 #   +psr<S>           Adds the process exit status at the end of the result,
 #                     separated with <S> string
 #   --with-errors     Captures the err stream in std
-#             --      All arguments after this option will be considered for the
+#   --                All arguments after this option will be considered for the
 #                     command to test.
 #------------------------------------------------------------------------------
 test_and_assert() {
@@ -144,7 +145,7 @@ test_and_assert() {
       _result="$($_fnc "$@")"
     fi
   fi
-  _ps_ret=$?
+  local _ps_ret=$?
   # Replace output if needed
   [[ -n "$o_output" ]] && _result="$(eval "echo ${o_output//\\/}")"
   # Check if have to use process exit status
@@ -236,12 +237,12 @@ assert() {
 #------------------------------------------------------------------------------
 TEST_print_test_results() {
   echo ""
-  local ctests=$((FAILED_TESTS+PASSED_TESTS))
-  echo -e "Out of $ctests tests: \e[92mPassed\e[0m $PASSED_TESTS / \e[91mFailed\e[0m $FAILED_TESTS"
+  local ctests=$((TESTF_FAILED_TESTS+TESTF_PASSED_TESTS))
+  echo -e "Out of $ctests tests: \e[92mPassed\e[0m $TESTF_PASSED_TESTS / \e[91mFailed\e[0m $TESTF_FAILED_TESTS"
   echo -n "Conclusion of the test: "
   if [[ $ctests -eq 0 ]]; then
     echo -e "\e[95mNo tests to pass :/\e[0m"
-  elif [[ $FAILED_TESTS -eq 0 ]]; then
+  elif [[ $TESTF_FAILED_TESTS -eq 0 ]]; then
     echo -e "\e[92mPASSED =D\e[0m"
   else
     echo -e "\e[91mFAILED =(\e[0m"

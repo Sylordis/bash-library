@@ -12,18 +12,26 @@
 # - for print_column():
 #   - COLUMNS_PADDING: sets the padding between columns (default=3)
 #   - COLUMN_SIZE: sets the column size (default=30)
-# - for t():
-#   - TAB_LENGTH: in spaces to simulate tabs in t() (default=5)
+# - for tab():
+#   - TAB_LENGTH: in spaces to simulate tabs in tab() (default=5)
+# - for wrap():
+#   - WRAP_SIZE: sets the length for wrapping (default=terminal length).
 #==============================================================================
 
 #------------------------------------------------------------------------------
-# Colors the message in a given color.
+# Colours the message in a given color.
 # Parameters:
-#   $1    Color codes to be applied
+#   $1    Colour codes to be applied
 #   $*    Message to be colored
+# Returns:
+#   Colour encoded provided string, or just the string if an error happens.
 #------------------------------------------------------------------------------
 color() {
-  echo -e "\e[${1}m${*:2}\e[0m"
+  if [[ "$1" =~ ^[0-9]+$ ]]; then
+    echo -e "\e[${1}m${*:2}\e[0m"
+  else
+     echo "$2"
+   fi
 }
 # Short aliases for specific colors
 cbold() { color '1' "$@"; }
@@ -54,23 +62,39 @@ clyellow() { color '93' "$@"; }
 # argument, simply prints white spaces. This method does NOT print a new line
 # at the end of its output.
 # Params:
-#   $1    Number of white spaces to put
+#   $1    Number of white spaces to put (default 1)
 #  [$2]   Pattern/character to put in margin instead of whitespaces
 # Returns:
 #   The margin character, repeated as many times as desired.
 #------------------------------------------------------------------------------
 margin() {
+  [[ "$1" =~ ^[0-9]+$ ]] || return 1
   local _num="$1"
   local _mtxt="$2"
   printf "${_mtxt:= }%.0s" $(seq 1 1 "${_num:=1}")
 }
 # Short aliases
-t() { margin $((${TAB_LENGTH-5} * ${1-1})); }
+m() { margin "$@"; }
+
+#------------------------------------------------------------------------------
+# Creates a tabulation of N spaces. N is based on definition of TAB_LENGTH
+# variable, with a default of 5.
+# Params:
+#   [$1]  Number of tabulations (default 1)
+# Returns:
+#   N times TAB_LENGTH value as spaces, nothing if an error occurs.
+#------------------------------------------------------------------------------
+tab() {
+  [[ "$1" =~ ^[0-9]*$ ]] || return 1
+  margin $((${TAB_LENGTH-5} * ${1-1}));
+}
+# Short aliases
+t() { tab "$@"; }
 
 #------------------------------------------------------------------------------
 # Normalises the printing of columns according to COLUMN_SIZE variable.
 # This method will print some text without a new line.
-# Parameters:
+# Params:
 #   $*    Message to be printed
 # Options:
 #   -r        Aligns column to the right
@@ -81,7 +105,7 @@ print_column() {
   while : ; do
     case "$1" in
       -r) o_align='';;
-      -s) c_size="$2"; shift;;
+      -s) [[ "$2" =~ ^[0-9]+$ ]] || return 1; c_size="$2"; shift;;
        *) break;;
     esac
     shift
@@ -93,37 +117,53 @@ print_column() {
 #------------------------------------------------------------------------------
 # Spans a message in a given message length, aligning to the left.
 # Does not output a zero character at the end.
-# Parameters:
-#   $1    Final length of the message
+# Params:
+#   $1    Final length of the message (integer)
 #   $*    Strings to align
 #------------------------------------------------------------------------------
-span_left() {
+align_left() {
+  [[ "$1" =~ ^[0-9]+$ ]] || return 1
   printf "%-*s" "$1" "${*:2}"
 }
+# Short alias
+a_left() { align_left "$@"; }
+a_l() { align_left "$@"; }
 
 #------------------------------------------------------------------------------
-# Spans a message in a given message length, aligning at the center.
+# Spans a text in a given message length, aligning at the center. If the
+# text is too long for the size, just outputs the text.
 # Does not output a zero character at the end.
-# Parameters:
+# Params:
 #   $1    Final length of the message
 #   $*    Strings to align
 #------------------------------------------------------------------------------
-span_center() {
-  local msg="${*:2}" size
-  local pad_left pad_right
+align_center() {
+  [[ "$1" =~ ^[0-9]+$ ]] || return 1
   local size="$1"
-  pad_right=$((($size - ${#msg})/2))
-  pad_left=$(($size - ${#msg} - $pad_right))
+  local msg="${*:2}"
+  local msg_size="${#msg}"
+  local pad_left pad_right
+  # Return normal message if too long
+  [[ "$size" -le "$msg_size" ]] && { echo "$msg"; return 0; }
+  pad_right=$(((size - msg_size)/2))
+  pad_left=$((size - msg_size - pad_right))
   printf '%*s%s%*s' "$pad_left" '' "$msg" "$pad_right" ''
 }
+# Short alias
+a_center() { align_center "$@"; }
+a_ctr() { align_center "$@"; }
 
 #------------------------------------------------------------------------------
 # Spans a message in a given message length, aligning to the right.
 # Does not output a zero character at the end.
-# Parameters:
+# Params:
 #   $1    Final length of the message
 #   $*    Strings to align
 #------------------------------------------------------------------------------
-span_right() {
+align_right() {
+  [[ "$1" =~ ^[0-9]+$ ]] || return 1
   printf "%*s" "$1" "${*:2}"
 }
+# Short alias
+a_right() { align_right "$@"; }
+a_r() { align_right "$@"; }

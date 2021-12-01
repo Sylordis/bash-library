@@ -2,26 +2,51 @@
 
 #==============================================================================
 # This is a launcher for all unit tests in this repository.
-# It will scan all files starting with "test-" and run them.
+# This launched works with all files starting with "test-", matching the actual
+# lib or package name and run them.
+# Example:
+#   lib with file name "mylib.sh" will be identified to "test-mylib.sh"
 #==============================================================================
 
 # Source files
 source "$(readlink -f "$(dirname "${BASH_SOURCE[0]}")/..")/bin/.launcher_profile_safe"
 source "$SH_PATH_LIB/fill_line.sh"
 source "$SH_PATH_PACKS/output_helper.sh"
-source "$SH_DEBUG"
 
-# Get test name based on pattern
+#------------------------------------------------------------------------------
+# Outputs basic usage.
+#------------------------------------------------------------------------------
+usage() {
+  echo "usage: $(basename "$0") [options] [tests..]"
+  fold -sw 80 <<< 'Runs all bash tests in this library (no arguments), specific tests (specified as arguments) or lists all tests (--list).'
+  echo 'with options:'
+  echo '   --help'
+  echo '     Outputs this help message.'
+  echo '   -l,--list'
+  echo '     Outputs a detailed list of all tests suites without running them.'
+  echo '   -s,--summary'
+  echo '     Outputs the summary of launched tests without the actual tests run outputs.'
+}
+
+#------------------------------------------------------------------------------
+# Get test name based on pattern.
+# Params:
+#   $1    Test to get the name from
+#------------------------------------------------------------------------------
 get_test_name() {
   basename "$1" | sed -re 's/test-(.*).sh/\1/g'
 }
 
-# Footer
+#------------------------------------------------------------------------------
+# Prints the exit message.
+#------------------------------------------------------------------------------
 goodbye() {
   cbold "$(fill_line "80" "=" "EXITING BASH UNIT-TESTING LAUNCHER ")"
 }
 
-# Gets a list of all tests per directory in SH_PATH_TEST
+#------------------------------------------------------------------------------
+# Gets a list of all tests per directory in SH_PATH_TEST.
+#------------------------------------------------------------------------------
 list_all_tests() {
   local test_dir test_file
   echo -e "\nList of available tests files:"
@@ -38,12 +63,18 @@ list_all_tests() {
   done < <(find "$SH_PATH_TEST" -mindepth 1 -type d)
 }
 
-# Prints a line with the test name
+#------------------------------------------------------------------------------
+# Prints a line with the test name.
+# Params:
+#   $1    Test to get the name from.
+#------------------------------------------------------------------------------
 print_test_name() {
   color "1;93" "$(fill_line 60 "-" "Testing '$(get_test_name "$1")' ")"
 }
 
-# Header
+#------------------------------------------------------------------------------
+# Prints the starting message.
+#------------------------------------------------------------------------------
 welcome() {
   cbold "$(fill_line "80" "=" "BASH UNIT-TESTING LAUNCHER ")"
 }
@@ -65,8 +96,9 @@ ALL_TESTS=()
 while :
 do
   case "$1" in
-    --summary|-s) SUMMARY=$TRUE;;
+    --help) usage; exit 0;;
     --list|-l) welcome; list_all_tests; goodbye; exit 0;;
+    --summary|-s) SUMMARY=$TRUE;;
     *) break;;
   esac
   shift
@@ -82,8 +114,8 @@ if [[ $# -gt 0 ]]; then
     if [[ -f "$test_file" ]]; then
       ALL_TESTS=("${ALL_TESTS[@]}" "$test_file")
     else
-      echo -e "ERROR: Test '$1' does not exist."
-      echo -e "    $(cdim "File: test-$t.sh")"
+      echo -e "ERROR: Test '$1' does not exist." >& 2
+      echo -e "    $(cdim "File: test-$t.sh")" >& 2
     fi
   done
 else
@@ -99,20 +131,18 @@ if [[ ${#ALL_TESTS[@]} -eq 0 ]]; then
   exit 0
 fi
 
-echo "" # lisibility
+echo
 
 # Launch all tests
 for test in "${ALL_TESTS[@]}"; do
   print_test_name "$test"
-  # debug test
-  # continue
   # Launch test, redirect output to terminal
   if [[ $SUMMARY -eq $FALSE ]]; then
     $test
   else
     $test | tail -n 2
   fi
-  echo "" # lisibility
+  echo
 done
 
 goodbye

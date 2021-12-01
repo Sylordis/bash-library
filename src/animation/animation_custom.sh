@@ -1,10 +1,10 @@
 #! /usr/bin/env bash
-source "$SH_DEBUG"
+
 #------------------------------------------------------------------------------
-# Displays one-character different symbols after each other in a loop, allowing
-# the user to create the animation they want.
+# Displays different symbols after each other in a loop, allowing the user to
+# create the animation they want.
 # Params:
-#   $*    <symbols> Symbols for the animation, 1 character per frame
+#   $*    <symbols> Symbols for the animation, one argument per frame.
 # Options:
 #   -c          Centers the symbol during animation.
 #               Equivalent to -m "%-ANIM-%". Overrides -r and -m.
@@ -62,14 +62,14 @@ animation_custom() {
     symbol="${!count}"
     symbol_size="${#symbol}"
     case "$align" in
-      0) pad_right=$(($max - $symbol_size));;
-      1) pad_left=$((($max - $symbol_size)/2))
-         pad_right=$(($max - $symbol_size - $pad_left));;
-      2) pad_left=$(($max - $symbol_size));;
+      0) pad_right=$((max - symbol_size));;
+      1) pad_left=$(((max - symbol_size)/2))
+         pad_right=$((max - symbol_size - pad_left));;
+      2) pad_left=$((max - symbol_size));;
     esac
     echo -en "${txt//%ANIM%/"$(printf "%*s%s%*s" "$pad_left" "" "${!count}" "$pad_right" "")"}\r"
     [[ $count -eq $# ]] && count=0
-    sleep $opt_delay
+    sleep "$opt_delay"
   done
   [[ $opt_newline -eq 0 ]] && echo
 }

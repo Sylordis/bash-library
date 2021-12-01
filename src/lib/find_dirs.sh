@@ -16,10 +16,8 @@ find_dirs() {
     echo 'usage: find_dirs <path> [folders-exclusion..]'
     return 1
   fi
-  # Go to path
-  cd "$1" 2> /dev/null
-  # Exit if directory doesn't exist
-  if [[ $? -ne 0 ]]; then
+  # Go to path and exit if directory changed fails
+  if ! cd "$1" 2> /dev/null; then
     echo "ERROR[$FUNCNAME]: Directory '$1' doesn't exist." >& 2
     return 1
   fi

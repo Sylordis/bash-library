@@ -12,12 +12,12 @@
 #------------------------------------------------------------------------------
 longest() {
   local size=0 index=-1 current=0
-  local _return_type=0 _result=''
+  local _return_type=LONGEST _result=''
   # Arg parsing
   while : ; do
     case "$1" in
-      -i) _return_type=1;;
-      -s) _return_type=2;;
+      -i) _return_type=INDEX;;
+      -s) _return_type=SIZE;;
        *) break;;
     esac
     shift
@@ -29,9 +29,10 @@ longest() {
   done
   # Specify return
   case "$_return_type" in
-    0) ((index++)); [[ $index -ne 0 ]] && _result="${@:$index:1}" ;;
-    1) _result=$index ;;
-    2) _result="$size" ;;
+    # Increase index by 1 since $0 is the method name
+    LONGEST) [[ $index -ge 0 ]] && { ((index++)); _result="${!index}"; } ;;
+    INDEX) _result=$index ;;
+    SIZE) _result="$size" ;;
   esac
   echo "$_result"
 }

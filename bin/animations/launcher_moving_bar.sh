@@ -2,7 +2,7 @@
 
 source "$SH_PATH_UTILS/init_animation.sh"
 
-args=(50)
+args=(10)
 t=8
 
 if [[ "$1" == "full" ]]; then

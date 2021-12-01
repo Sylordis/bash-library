@@ -1,11 +1,12 @@
 #! /usr/bin/env bash
 
+source "$SH_PATH_LIB/fill_line.sh"
+
 #------------------------------------------------------------------------------
-# animation_moving_bar()
 # Displays an animated bar which will move horizontally back and forth.
 # This animation is performed on a single line and does not echo a new line
 # when killed, but goes back at the beginning of the line each time.
-# Params: 
+# Params:
 #  [$1]   Total line length to fill
 # Options:
 #   -p <T>      Duration between each rotation change (default 0.05)
@@ -39,11 +40,11 @@ animation_moving_bar() {
     echo "ERROR[$FUNCNAME]: Format (\$1) must be 3 or 4 characters (ex: '[=]' or '[#-]')." >& 2
     error=0
   fi
-  if grep -qE '[^0-9]' <<< "$line_length"; then
-    echo "ERROR[$FUNCNAME]: Line length should be a number."
+  if ! [[ "$line_length" =~ ^[0-9]+$ ]]; then
+    echo "ERROR[$FUNCNAME]: Line length should be a positive integer." >& 2
     error=0
-  elif [[ "$line_length" -lt $bar_length_minimum ]]; then
-    echo "ERROR[$FUNCNAME]: Line length should be at least $bar_length_minimum long."
+  elif [[ "$line_length" -lt "$bar_length_minimum" ]]; then
+    echo "ERROR[$FUNCNAME]: Line length should be at least $bar_length_minimum long." >& 2
     error=0
   fi
   # Display or exit
@@ -84,9 +85,9 @@ animation_moving_bar() {
         third="$(printf "%${remaining}s" | tr ' ' "$space_char")"
       fi
       echo -ne "$begin_char$first$second$third$end_char\r"
-      sleep $pause
+      sleep "$pause"
     done
-    fill_line $line_length ' '
+    fill_line "$line_length" ' '
   else
     return 1
   fi

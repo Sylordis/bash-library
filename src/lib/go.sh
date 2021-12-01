@@ -24,7 +24,8 @@ go() {
   else
     # Getting location var
     local loc=""
-    local dyn_path="$(declare -p "GO_DYN_PATH_$(to_upper "$1")"  2> /dev/null)"
+    local dyn_path
+    dyn_path="$(declare -p "GO_DYN_PATH_$(to_upper "$1")"  2> /dev/null)"
     if [[ -n "$dyn_path" ]]; then
       # Dynamic path: get the path from an expression
       loc="GO_DYN_PATH_$(to_upper "$1")"
@@ -44,6 +45,7 @@ go() {
           path+="/$arg"
         done
       fi
+      # shellcheck disable=SC2164
       cd "$path"
     else
       if [[ -n "$loc" ]] && [[ ! -d "$loc" ]]; then

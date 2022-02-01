@@ -3,7 +3,11 @@ A repo of useful libraries that I've been creating through the years to make bas
 
 (Yes, I know, `zsh` exists and all, but its not the point, feel free to adapt).
 
-It offers:
+Most of those scripts are kept up-to-date at various times but I try to maintain it to date with latest bash versions.
+
+Each proposed library has its own documentation, read it carefully before using them.
+
+## Structure
 - libraries (to be sourced).
 - packages (to be sourced).
 - some completion scripts (incl. for *some* previous items listed, to be sourced).
@@ -15,12 +19,12 @@ It offers:
 - some wild bash tests to be kept for information and posterity.
 - some misc tools.
 
-Most of those scripts are kept up-to-date at various times but I try to maintain it to date with latest bash versions.
-
+## Development and testing
 Everything in the libraries and packages have been unit tested (as much as one can with bash).
 
-Each proposed library has its own documentation, read it carefully before using them.
+All development and testing is done using Cygwin, give me a shout if something is not working on standard Linux platforms.
 
+## Usage
 - File `launcher.sh` allows to run all/some unit tests or get the list.
 - File `source_libs.sh` allows to source all libs and completion files.
 - `.launcher_profile` (and its `safe` counterpart) allow to dynamically create environment variables to use all libs in this repo.

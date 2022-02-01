@@ -10,6 +10,10 @@
 #   $*    <txt> Text to put in the clipboard
 #------------------------------------------------------------------------------
 clip_put() {
+  local putcmd='putclip'
+  if [[ -n "$(type -P xclip)" ]] && [[ -z "$(type -P putclip)" ]]; then
+        putcmd="$(type -P xclip) -sel clip -i"
+  fi
   echo "$*" | putclip
 }
 
@@ -17,5 +21,9 @@ clip_put() {
 # Gets text from the clipboard.
 #------------------------------------------------------------------------------
 clip_get() {
-  getclip
+  local getcmd='getclip'
+  if [[ -n "$(type -P xclip)" ]] && [[ -z "$(type -P getclip)" ]]; then
+        getcmd="$(type -P xclip) -sel clip -o"
+  fi
+  $getcmd
 }

@@ -63,7 +63,7 @@ test_functionExtender "$result3" 0 foo
 test_functionExtender_getExtensions $'FOO_VAR' foo
 
 FNC_EXT_NAME_PATTERN="%BASE:to_upper%_%EXT:to_upper:myfunc%"
-test_functionExtender "ERROR: Program not set for extension 'FOO_VR' of feature '$func_name'" 1 foo
+test_functionExtender "ERROR[launch_function_extension]: Program not set for extension 'FOO_VR' of feature '$func_name'" 1 foo
 test_functionExtender_getExtensions "" foo
 
-test_functionExtender "ERROR: launch_function_extension, wrong number of arguments." 1 bar
+test_functionExtender "ERROR[launch_function_extension]: Wrong number of arguments." 1 bar

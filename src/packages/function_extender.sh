@@ -147,7 +147,6 @@ get_extender_pattern_value() {
   core="$(get_extender_core "$1")"
   patt="$(get_extender_pattern "$1")"
   declaration="$(grep -o "$patt" <<< "$FNC_EXT_NAME_PATTERN" | sed -re "s/%([^%]+)%/\1/g")"
-  debug core patt declaration
   elements=($(echo "${declaration##"${core}"}" | tr : ' '))
   replacement="$(apply_transformations "$2" "${elements[@]}")"
   unset elements
@@ -196,13 +195,13 @@ launch_function_extension() {
   check_var_set FNC_EXT_NAME_PATTERN || return 1
   # Arg check
   if [[ $# -lt 2 ]]; then
-    echo "ERROR[$FUNCNAME]: wrong number of arguments." >&2
+    echo "ERROR[$FUNCNAME]: Wrong number of arguments." >&2
     return 1
   fi
   local cmd
   cmd="$(get_function_extension_name "$1" "$2")"
   if ! check_function_exists "$cmd"; then
-    echo "ERROR[$FUNCNAME]: program not set for extension '$cmd' of feature '$1'" >&2
+    echo "ERROR[$FUNCNAME]: Program not set for extension '$cmd' of feature '$1'" >&2
     return 1
   fi
   eval "$cmd ${*:3}"

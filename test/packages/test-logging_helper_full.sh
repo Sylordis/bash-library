@@ -42,7 +42,7 @@ test_loggingHelper 'Hello world' 'log "Hello world"'
 test_loggingHelper "ERROR[logger]: Unknown output type 'testy', possible values are [BOTH, FILE_ONLY]." "logger_configure --type=testy 2>&1"
 test_loggingHelper "ERROR[logger]: Unknown saving method 'testy', possible values are [APPEND, OVERWRITE, SAVE]." "logger_configure --save=testy 2>&1"
 test_loggingHelper "ERROR[logger]: Unknown log level 'testy', possible values are [ERROR, WARN, INFO, DEBUG]." "logger_configure --level=testy 2>&1"
-test_loggingHelper "ERROR[logger]: unknown setting '--testy'." "logger_configure --testy 2>&1"
+test_loggingHelper "ERROR[logger_configure]: unknown setting '--testy'." "logger_configure --testy 2>&1"
 test_loggingHelper "ERROR[logger]: Cannot create new log file '/blah/file'." "logger_configure --file=/blah/file 2>&1"
 
 # File

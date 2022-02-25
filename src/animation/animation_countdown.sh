@@ -7,6 +7,8 @@
 # Options:
 #   -n    Display a new line at the end of the countdown.
 #   -d V  Delay between two counts
+# Dependencies:
+#   echo, printf, seq, sleep
 #------------------------------------------------------------------------------
 animation_countdown() {
   local option_newline=0 option_delay=0.25

@@ -9,6 +9,8 @@
 #  [$2]   <string> Pattern/character to put in margin instead of whitespaces
 # Returns:
 #   The margin character, repeated as many times as desired.
+# Dependencies:
+#   printf, seq
 #------------------------------------------------------------------------------
 margin() {
   local _num="$1"

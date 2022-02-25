@@ -8,6 +8,8 @@
 # Returns:
 #   the index of the first occurence of the value in the array, or -1 if it
 #   cannot be found.
+# Dependencies:
+#   echo
 #------------------------------------------------------------------------------
 find_in_array() {
   local v i=-1 c=0

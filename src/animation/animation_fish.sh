@@ -6,6 +6,8 @@
 #  [$1]   [length] Total line length to fill (default=terminal columns)
 # Options:
 #   -pid <PID>  PID of the program to wait for
+# Dependencies:
+#   awk, echo, printf, tput, sleep
 #------------------------------------------------------------------------------
 animation_fish() {
   local line_length pid direction curr_pos fish_index

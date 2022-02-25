@@ -10,6 +10,8 @@
 #   $3    <result_array> Resulting array name
 # Returns:
 #   Nothing but creates a new variable containing an array with all differences
+# Dependencies:
+#   comm, printf
 #------------------------------------------------------------------------------
 array_symmetric_diff() {
   local -n _array1="$1"

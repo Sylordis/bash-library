@@ -9,6 +9,8 @@
 #   $*    <fncs..> Methods to apply for transformation
 # Returns:
 #   The transformed text
+# Dependencies:
+#   echo
 #------------------------------------------------------------------------------
 apply_transformations() {
   local _txt="$1"

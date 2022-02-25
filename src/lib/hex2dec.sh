@@ -6,6 +6,8 @@
 #   $1    <hex> Hex string to put to decimal
 # Returns:
 #   The decimal version
+# Dependencies:
+#   bc, echo
 #------------------------------------------------------------------------------
 hex2dec() {
   echo "ibase=16; $1" | bc

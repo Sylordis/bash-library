@@ -8,6 +8,8 @@
 #  [$*]   [folders-exclusion..] Folder names to exclude
 # Returns:
 #   A list of paths
+# Dependencies:
+#   echo
 #------------------------------------------------------------------------------
 find_dirs() {
   # Wrong usage

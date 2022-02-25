@@ -7,6 +7,8 @@
 #   $1    <decimal> Decimal number to put in hexadecimal
 # Returns:
 #   The hexadecimal number
+# Dependencies:
+#   bc, echo
 #------------------------------------------------------------------------------
 dec2hex() {
   echo "obase=16; $1" | bc

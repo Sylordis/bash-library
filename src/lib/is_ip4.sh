@@ -6,6 +6,8 @@
 #   $1    <string> String to check for IPv4 address format
 # Returns:
 #   0/true if valid, 1/false otherwise
+# Dependencies:
+#   grep
 #------------------------------------------------------------------------------
 is_ip4() {
   if grep -qE '^[0-9]{1,3}(\.[0-9]{1,3}){3}$' <<< "$1"; then

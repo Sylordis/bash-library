@@ -25,6 +25,8 @@ source "$SH_PATH_LIB/strip_color_tags.sh"
 #   -p <MSG>    Prefix before bar, counts in total length
 # Example:
 #   progress_bar "[=]" 80 13 560
+# Dependencies:
+#   echo, printf, tput
 #------------------------------------------------------------------------------
 animation_progress_bar() {
   local prefix=""

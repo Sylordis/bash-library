@@ -4,6 +4,8 @@
 # Displays a dancing kirby.
 # Options:
 #   -pid <PID>  PID of the program to wait for
+# Dependencies:
+#   awk, echo, grep, printf, sleep
 #------------------------------------------------------------------------------
 animation_kirby() {
   local curr pause pid

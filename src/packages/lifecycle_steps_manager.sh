@@ -10,6 +10,8 @@
 # Find description of said variables at their declaration.
 # You'll only need to call lifecycle_manage_steps method once with the proper
 # arguments.
+# Dependencies:
+#   echo
 #==============================================================================
 
 #------------------------------------------------------------------------------
@@ -20,6 +22,8 @@
 # Returns:
 #   the index of the first occurence of the value in the array, or -1 if it
 #   cannot be found.
+# Dependencies:
+#   echo
 #------------------------------------------------------------------------------
 find_in_array() {
   local v i=-1 c=0

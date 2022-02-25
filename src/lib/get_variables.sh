@@ -6,6 +6,8 @@
 #   $1    <pattern> Pattern for variable names
 # Returns:
 #   A list of variables if they exist
+# Dependencies:
+#   grep
 #------------------------------------------------------------------------------
 get_variables() {
   compgen -A variable | grep -E "^${1}$"

@@ -14,6 +14,8 @@
 # Params:
 #   $1    <psexit> Process status exit (0 is success, > 0 is failure)
 #  [$*]   <echo-args> Arguments for echo (except -e)
+# Dependencies:
+#   echo
 #------------------------------------------------------------------------------
 print_result() {
   local prefix_failure prefix_success suffix_failure suffix_success cmd

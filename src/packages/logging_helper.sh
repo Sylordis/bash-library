@@ -8,6 +8,8 @@
 # Options:
 #   -l <L>  Outputs a log with given level L. Level should not be more than
 #           5 characters.
+# Dependencies:
+#   echo, printf
 #------------------------------------------------------------------------------
 log() {
   if [[ "$1" == "-l" ]]; then

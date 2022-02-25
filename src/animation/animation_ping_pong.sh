@@ -4,6 +4,8 @@
 # Displays an animated ball.
 # Options:
 #   -pid <PID>  PID of the program to wait for
+# Dependencies:
+#   awk, echo, grep, printf, sleep
 #------------------------------------------------------------------------------
 animation_ping_pong() {
   # Characters used for the spinner in order

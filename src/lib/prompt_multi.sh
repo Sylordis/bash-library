@@ -22,6 +22,8 @@ source "$SH_PATH_LIB/join_by.sh"
 #   if the array was empty.
 #   In case of multiple answers possible (-m), the indexes will be returned
 #   with the first separator specified or the default comma.
+# Dependencies:
+#   echo, sed
 #------------------------------------------------------------------------------
 prompt_multi() {
   local answer_pattern="__ANSWER__"

@@ -9,6 +9,8 @@
 # Returns:
 #   0/true if no arguments (empty arrays) or both variables are arrays that
 #   contains the same values in the same order, 1/false otherwise.
+# Dependencies:
+#   diff, printf, cut
 #------------------------------------------------------------------------------
 array_equals() {
   local flag

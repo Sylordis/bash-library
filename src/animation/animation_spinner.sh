@@ -11,6 +11,8 @@
 #   -m <V>   Message to display instead of just the rotating bar
 #             Use pattern %BAR% for the emplacement of the spinner.
 #   -p <T>   Duration between each rotation change (default 0.25)
+# Dependencies:
+#   awk, echo, grep, sleep
 #------------------------------------------------------------------------------
 animation_spinner() {
   local pause="0.25"

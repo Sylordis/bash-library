@@ -7,6 +7,8 @@
 #   $*    <strs..> Strings to join together
 # Returns:
 #   All the elements joined.
+# Dependencies:
+#   echo, printf
 #------------------------------------------------------------------------------
 join_by() {
   local d="$1"

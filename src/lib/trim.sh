@@ -11,6 +11,8 @@
 #         for leading and/or trailing
 #   -r S  Trim string S instead of whitespaces. Also removes the repetitions
 #         of S. Follows sed regexp syntax.
+# Dependencies:
+#   echo, printf
 #------------------------------------------------------------------------------
 trim() {
   local _char _cmd _expr _final

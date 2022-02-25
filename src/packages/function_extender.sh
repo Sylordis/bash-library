@@ -11,6 +11,8 @@
 # it extends (hence the "$@"), but it does not have to be an absolute rule.
 # This package requires a variable FNC_EXT_NAME_PATTERN to be set, as a pattern
 # for extended method names.
+# Dependencies:
+#   echo, grep, sed, tr
 #==============================================================================
 
 #------------------------------------------------------------------------------
@@ -22,6 +24,8 @@
 #   $*    Methods to apply for transformation
 # Returns:
 #   The transformed text
+# Dependencies:
+#   echo
 #------------------------------------------------------------------------------
 apply_transformations() {
   local original="$1"
@@ -54,6 +58,8 @@ check_function_exists() {
 #   $1    Variable name
 # Returns:
 #   0/true if it does exist, 1/false otherwise
+# Dependencies:
+#   echo
 #------------------------------------------------------------------------------
 check_var_set() {
   if [[ -z "${!1}" ]]; then
@@ -71,6 +77,8 @@ check_var_set() {
 #   $*    Any string
 # Returns:
 #   The lowercased string.
+# Dependencies:
+#   tr
 #------------------------------------------------------------------------------
 to_lower() {
   tr '[:upper:]' '[:lower:]' <<< "$@"
@@ -91,6 +99,8 @@ to_lower() {
 # Params:
 #   $1    Basic function name
 #   $2    Extension name
+# Dependencies:
+#   echo, sed
 #------------------------------------------------------------------------------
 get_function_extension_name() {
   local replacement_base replacement_ext final_cmd
@@ -109,6 +119,8 @@ get_function_extension_name() {
 # Returns the correct text formated for the core variable.
 # Params:
 #   $1    Part of the pattern to consider {base, ext}, case insensitive.
+# Dependencies:
+#   echo
 #------------------------------------------------------------------------------
 get_extender_core() {
   local core
@@ -127,6 +139,8 @@ get_extender_core() {
 # Returns the pattern for the core variable.
 # Params:
 #   $1    Part of the pattern to consider {base, ext}, case insensitive.
+# Dependencies:
+#   echo
 #------------------------------------------------------------------------------
 get_extender_pattern() {
   echo "%$(get_extender_core "$1")[^%]*%"
@@ -141,6 +155,8 @@ get_extender_pattern() {
 # Params:
 #   $1    Part of the pattern to consider {base, ext}, case insensitive.
 #   $2    Basic function name
+# Dependencies:
+#   echo, sed
 #------------------------------------------------------------------------------
 get_extender_pattern_value() {
   local core patt declaration replacement
@@ -160,6 +176,8 @@ get_extender_pattern_value() {
 #   @link shared_requirements PACKAGE FUNCTION_EXTENDER
 # Params:
 #   $1    Basic function name
+# Dependencies:
+#   echo, grep, sed
 #------------------------------------------------------------------------------
 get_function_extensions() {
   local replacement_base replacement_ext extensions_pattern
@@ -190,6 +208,8 @@ get_function_extensions() {
 # Returns:
 #   The return of the extension, or just 1 if a problem happens during the
 #   the launch.
+# Dependencies:
+#   echo
 #------------------------------------------------------------------------------
 launch_function_extension() {
   check_var_set FNC_EXT_NAME_PATTERN || return 1

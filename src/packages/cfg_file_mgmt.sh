@@ -20,6 +20,8 @@
 #
 # Sections do not have to be separated by an empty line.
 # Comments can be done in the configuration file with lines starting with #.
+# Dependencies:
+#   awk, grep
 #==============================================================================
 
 #------------------------------------------------------------------------------
@@ -47,6 +49,8 @@
 #         the actual function name.
 #   -ne   Once the configuration file is loaded, will check that all variables
 #         are not set to empty value, or throws an error
+# Dependencies:
+#   grep
 #------------------------------------------------------------------------------
 cfg_load_file_to_vars() {
   local file blockname block no_empty=1
@@ -126,6 +130,8 @@ cfg_load_file_to_vars() {
 # Params:
 #   $1    File where to extract the block from
 #  [$2]   Block name ("default" if not specified)
+# Dependencies:
+#   awk, grep
 #------------------------------------------------------------------------------
 cfg_load_block() {
   awk 'BEGIN { RS="[[]"; } /^'"${2:-default}"'\]/ { print "[" $0 }' "$1" \

@@ -17,6 +17,8 @@
 #   -pid <PID>  PID of the program to wait for
 #   -r          Right aligns the symbol during the animation
 #               Equivalent to -m "%-ANIM%". Overrides -c and -m.
+# Dependencies:
+#   awk, echo, grep, printf, sed, sleep
 #------------------------------------------------------------------------------
 animation_custom() {
   local opt_pid opt_delay opt_newline=1 count max=0 message='%ANIM%' txt

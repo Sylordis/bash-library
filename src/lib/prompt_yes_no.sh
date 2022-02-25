@@ -11,6 +11,8 @@
 #         placeholder
 # Returns:
 #   0/true if user answers yes, 1/false if he answers no
+# Dependencies:
+#   echo
 #------------------------------------------------------------------------------
 prompt_yes_no() {
   local answer=""

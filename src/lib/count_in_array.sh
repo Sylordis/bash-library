@@ -9,6 +9,8 @@
 #         expansion of values (especially with star character)
 # Returns:
 #   The number of occurences of one token in the array, 0 if the array is empty
+# Dependencies:
+#   echo
 #------------------------------------------------------------------------------
 count_in_array() {
   local v count=0

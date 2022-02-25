@@ -7,6 +7,8 @@
 #   $*    <strings..> Any string
 # Returns:
 #   The lowercased string.
+# Dependencies:
+#   tr
 #------------------------------------------------------------------------------
 to_lower() {
   tr '[:upper:]' '[:lower:]' <<< "$@"

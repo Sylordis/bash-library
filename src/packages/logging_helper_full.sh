@@ -13,6 +13,8 @@
 #   - logger_configure
 # The most critical method is of course the configuration, which takes only
 # options to be set, see its documentation for more information.
+# Dependencies:
+#   basename, dirname, echo, find, printf, sed, touch, tr, mv, wc
 #==============================================================================
 
 #------------------------------------------------------------------------------
@@ -45,6 +47,8 @@ in_array() {
 #   $*    Each element to join
 # Returns:
 #   All the elements joined.
+# Dependencies:
+#   echo, printf
 #------------------------------------------------------------------------------
 join_by() {
   local d="$1";
@@ -62,22 +66,25 @@ join_by() {
 #   $*    Text to strip
 # Returns:
 #   The text without any color tags.
+# Dependencies:
+#   echo, sed
 #------------------------------------------------------------------------------
 strip_color_tags() {
   echo -e "$@" | sed -r "s:\x1B\[[0-9;]*[mK]::g"
 }
 
 #------------------------------------------------------------------------------
-# to_upper()
 # Changes all characters in a string to uppercase.
 # Apply any color tags after applying this method.
 # Params:
-#   $*    Any string
+#   $*    <strings..> Any string
 # Returns:
 #   The uppercased string.
+# Dependencies:
+#   tr
 #------------------------------------------------------------------------------
 to_upper() {
-  echo "$@" | awk '{print toupper($0)}'
+  tr '[:lower:]' '[:upper:]' <<< "$@"
 }
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -130,6 +137,8 @@ LOGGER_OUTPUT_TYPE="${LOGGER_OUTPUT_TYPES[0]}"
 #   -l <L>  Outputs a log with given level L. This is affected by the current
 #           log display level set.
 #   -s <S>  Uses the given stream redirection.
+# Dependencies:
+#   printf
 #------------------------------------------------------------------------------
 log() {
   local level stream msg no_file
@@ -227,6 +236,8 @@ log_warn() {
 # Return:
 #   0/true if configuration was successful, 1/false if at least one error
 #   happened.
+# Dependencies:
+#   echo
 #------------------------------------------------------------------------------
 logger_configure() {
   # Parse all arguments
@@ -315,6 +326,8 @@ _logger_set_output_type() {
 #   $3    Name of the variable
 #   $4    Error message if the variable does not have a correct value
 #         The list of possible values will be outputed.
+# Dependencies:
+#   echo
 #------------------------------------------------------------------------------
 _logger_check_set_config() {
   local var ps_ret
@@ -339,6 +352,8 @@ _logger_check_set_config() {
 # logging_helper._logger_manage_file()
 # Manages the log file and saving methods according to configuration.
 # Logger will make the script exit if an error happens.
+# Dependencies:
+#   basename, dirname, echo, find, touch, mv, wc
 #------------------------------------------------------------------------------
 _logger_manage_file() {
   if [[ -n "$LOGGER_LOG_FILE" ]] && [[ ! -f "$LOGGER_LOG_FILE" ]]; then

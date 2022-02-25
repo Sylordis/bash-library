@@ -6,6 +6,8 @@
 #   $*    <values..> Elements of the array
 # Returns:
 #   The string representation of the array
+# Dependencies:
+#   echo
 #------------------------------------------------------------------------------
 print_array() {
   # Print each element

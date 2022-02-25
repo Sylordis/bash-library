@@ -13,6 +13,8 @@
 #   -l args Arguments for find
 #   -q      Quiet mode. Do not print the folder names
 #   -s N    Sleep N seconds between each operation
+# Dependencies:
+#   echo
 #------------------------------------------------------------------------------
 foreach() {
   _c_dir() { echo "$@"; }

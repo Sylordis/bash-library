@@ -16,6 +16,8 @@
 #   - TAB_LENGTH: in spaces to simulate tabs in tab() (default=5)
 # - for wrap():
 #   - WRAP_SIZE: sets the length for wrapping (default=terminal length).
+# Dependencies:
+#   echo, printf, seq
 #==============================================================================
 
 #------------------------------------------------------------------------------
@@ -25,6 +27,8 @@
 #   $*    Message to be colored
 # Returns:
 #   Colour encoded provided string, or just the string if an error happens.
+# Dependencies:
+#   echo
 #------------------------------------------------------------------------------
 color() {
   if [[ "$1" =~ ^[0-9]+$ ]]; then
@@ -66,6 +70,8 @@ clyellow() { color '93' "$@"; }
 #  [$2]   Pattern/character to put in margin instead of whitespaces
 # Returns:
 #   The margin character, repeated as many times as desired.
+# Dependencies:
+#   printf, seq
 #------------------------------------------------------------------------------
 margin() {
   [[ "$1" =~ ^[0-9]+$ ]] || return 1
@@ -99,6 +105,8 @@ t() { tab "$@"; }
 # Options:
 #   -r        Aligns column to the right
 #   -s <size> Fixes the size of the column
+# Dependencies:
+#   printf
 #------------------------------------------------------------------------------
 print_column() {
   local o_align='-' c_opts c_size=${COLUMN_SIZE-30}
@@ -120,6 +128,8 @@ print_column() {
 # Params:
 #   $1    Final length of the message (integer)
 #   $*    Strings to align
+# Dependencies:
+#   printf
 #------------------------------------------------------------------------------
 align_left() {
   [[ "$1" =~ ^[0-9]+$ ]] || return 1
@@ -136,6 +146,8 @@ a_l() { align_left "$@"; }
 # Params:
 #   $1    Final length of the message
 #   $*    Strings to align
+# Dependencies:
+#   echo, printf
 #------------------------------------------------------------------------------
 align_center() {
   [[ "$1" =~ ^[0-9]+$ ]] || return 1
@@ -159,6 +171,8 @@ a_ctr() { align_center "$@"; }
 # Params:
 #   $1    Final length of the message
 #   $*    Strings to align
+# Dependencies:
+#   printf
 #------------------------------------------------------------------------------
 align_right() {
   [[ "$1" =~ ^[0-9]+$ ]] || return 1

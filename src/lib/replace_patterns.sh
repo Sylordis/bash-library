@@ -19,6 +19,8 @@
 #           empty.
 # Returns:
 #   The text with all patterns replaced by their values.
+# Dependencies:
+#   echo, grep, sed, sort
 #------------------------------------------------------------------------------
 replace_patterns() {
   local o_delim_b o_delim_e o_prefix

@@ -9,6 +9,8 @@
 #   -s    Will return the size of the longest (0 if no value)
 # Returns:
 #   The longest value (according to options) or nothing if there's no value
+# Dependencies:
+#   echo
 #------------------------------------------------------------------------------
 longest() {
   local size=0 index=-1 current=0

@@ -7,6 +7,8 @@
 # Params:
 #   $1    <n> Number of repetitions.
 #   $*    <cmd> Command to be repeated
+# Dependencies:
+#   seq
 #------------------------------------------------------------------------------
 do_repeat() {
   # Check if first argument is a number

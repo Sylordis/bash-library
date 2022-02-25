@@ -13,6 +13,8 @@ source "$SH_PATH_LIB/is_number.sh"
 #   -tlo  Considers the length of texts only.
 # Returns:
 #   Empty string/status 1 if there's no element, the biggest/status 0 otherwise
+# Dependencies:
+#   echo
 #------------------------------------------------------------------------------
 biggest_in_array() {
   local text_length=1;

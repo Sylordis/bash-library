@@ -7,6 +7,8 @@
 #   $*    <strings..> Any string
 # Returns:
 #   The uppercased string.
+# Dependencies:
+#   tr
 #------------------------------------------------------------------------------
 to_upper() {
   tr '[:lower:]' '[:upper:]' <<< "$@"

@@ -15,6 +15,8 @@ source "$SH_PATH_LIB/to_upper.sh"
 #  [$*]   <suffixes..> Path suffix for home variables that Will be added to path
 #           each argument being a directory or additional arguments to provide to
 #           dynamic paths.
+# Dependencies:
+#   echo
 #------------------------------------------------------------------------------
 go() {
   if [[ $# -eq 0 ]]; then

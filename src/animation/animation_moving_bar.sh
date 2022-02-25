@@ -12,6 +12,8 @@ source "$SH_PATH_LIB/fill_line.sh"
 #   -p <T>      Duration between each rotation change (default 0.05)
 #   -pid <PID>  PID of the program to wait for
 #   -f <V>      Format of the bar
+# Dependencies:
+#   awk, echo, grep, printf, sleep, tput, tr
 #------------------------------------------------------------------------------
 animation_moving_bar() {
   # Variables

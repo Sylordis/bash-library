@@ -11,6 +11,8 @@
 # Returns:
 #   0/The filled line, or the given text if it's longer than the final length
 #   requested, 1/nothing if one parameter is missing.
+# Dependencies:
+#   echo, sed, seq
 #------------------------------------------------------------------------------
 fill_line() {
   # Arg check

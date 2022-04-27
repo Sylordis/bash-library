@@ -22,7 +22,7 @@ WD_clean() { working_directory_clean "$@"; }
 
 #------------------------------------------------------------------------------
 # Creates test files in the working directory.
-# Params:
+# Args:
 #   $*    Files to create in the working directory
 #  [-d]   Files after this flag will be created as directories
 #  [-f]   Files after this flag will be created as empty files
@@ -48,7 +48,7 @@ WD_add() { working_directory_add "$@"; }
 
 #------------------------------------------------------------------------------
 # Deletes previous working directory and creates a new one.
-# Params:
+# Args:
 #   $*    Files to create in the working directory
 #  [-d]   Files after this flag will be created as directories
 #  [-f]   Files after this flag will be created as empty files
@@ -85,7 +85,7 @@ WD_del() { working_directory_delete "$@"; }
 
 #------------------------------------------------------------------------------
 # Returns the working directory path.
-# Params:
+# Args:
 #   $1    File name to be append to the path of the working directory
 #------------------------------------------------------------------------------
 working_directory_get_path() {

@@ -82,13 +82,13 @@ cfg_load_file_to_vars() {
     $_logger "No configuration found for [${blockname:default}] in '$file'." >& 2
     return 1
   else
-    local block varname cfgvar value vartype
+    local block varname cfgvar cfgline cfgvalue vartype var
     declare -A all_vars
     block="$(cfg_load_block "$file" "$blockname")"
     for var in "${@:2}"; do
       cfgvar="${var%%=*}"
       varname="${var##*=}"
-      vartype=""
+      vartype=''
       # Extract vartype if present
       if [[ "$varname" == *':'* ]]; then
         vartype="${varname##*:}"
@@ -96,14 +96,20 @@ cfg_load_file_to_vars() {
       fi
       # Set variable
       local -n refvarname="$varname"
-      value="$(grep -oP "^ *$cfgvar=\K.*" <<< "$block")"
+      cfgline="$(grep -oE "^ *$cfgvar(:[^=]+)?=.*" <<< "$block")"
+      # Determine type from config file if not already set
+      if [[ -z "$vartype" ]] && grep -qE "^ *$cfgvar:[^=]+=.*" <<< "$cfgline"; then
+        vartype="${cfgline%%=*}"
+        vartype="${vartype##*:}"
+      fi
+      cfgvalue="$(grep -oP "^ *$cfgvar(:[^=]+)?=\K.*" <<< "$cfgline")"
       # Check for vartype
+      #shellcheck disable=SC2034
       case "$vartype" in
-        file|FILE) value="${value/#~/$HOME}"
-                  [[ -r "${value}" ]] && refvarname="$(cat "${value}")";;
-          cmd|CMD) refvarname="$(eval "${value}")";;
-              #shellcheck disable=SC2034 reference variable
-                *) refvarname="$value";;
+        file|FILE) cfgvalue="${cfgvalue/#~/$HOME}"
+                  [[ -r "${cfgvalue}" ]] && refvarname="$(cat "${cfgvalue}")";;
+          cmd|CMD) refvarname="$(eval "${cfgvalue}")";;
+                *) refvarname="$cfgvalue";;
       esac
       all_vars[$varname]="$cfgvar"
     done

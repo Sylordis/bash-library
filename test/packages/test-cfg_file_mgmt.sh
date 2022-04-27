@@ -45,7 +45,7 @@ ERROR[cfg_load_file_to_vars]: Loading '$file1' resulted in incomplete variable s
 foo() {
   echo 'MYBAD' "$@"
 }
-test_cfgFileMgmt --with-errors "MYBAD No configuration found for [foo] in '$file1'.|1" --log foo "$file1:foo"
+test_cfgFileMgmt --with-errors "MYBAD No configuration found for [bar] in '$file1'.|1" --log foo "$file1:bar"
 
 
 # From now on we have to call the method directly from this root to be able to set & display the variables
@@ -110,5 +110,22 @@ THE_VARS_EXPECTED[C]='foo'
 cfg_load_file_to_vars "$file3:A" 'the.var.*=THE_VARS'
 assert -v 'THE_VARS_EXPECTED' 'THE_VARS'
 unset THE_VARS THE_VARS_EXPECTED
+
+file4content_path="$(WD_path)/mycfgfile4_content"
+file4content="idwq ow que wq aeewtewt
+wqeu"
+echo "$file4content" > "$file4content_path"
+file4="$(WD_path)/mycfgfile4"
+case4_cmd="newtpe"
+cat << EOF > "$file4"
+[default]
+nt:cmd=echo $case4_cmd
+some=var
+some1:file=$file4content_path
+EOF
+
+cfg_load_file_to_vars "$file4" 'nt=newtype' 'some1=HELLO'
+assert "$case4_cmd,$file4content" "${newtype},${HELLO}"
+unset newtype HELLO
 
 WD_delete

@@ -9,7 +9,7 @@ usage() {
 }
 
 # Variables
-CLEAN=0
+CLEAN=1
 SSH_OPTIONS="-o ConnectTimeout=5 -o BatchMode=yes -o StrictHostKeyChecking=no"
 HOSTS=()
 FILES=()
@@ -39,7 +39,7 @@ distribute() {
       else
         filepath="$(readlink -f "$file")"
       fi
-      if [[ $CLEAN -eq 1 ]]; then
+      if [[ $CLEAN -eq 0 ]]; then
         ssh $SSH_OPTIONS "$host" "rm --preserve-root -rf $filepath"
       else
         scp -r $SSH_OPTIONS "$file" "${host}:$filepath"
@@ -51,7 +51,7 @@ distribute() {
 # Option parsing
 while :; do
   case "$1" in
-    -d) CLEAN=1;;
+    -d) CLEAN=0;;
     -t) TARGET="$2"; shift;;
      *) break;;
   esac

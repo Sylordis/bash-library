@@ -8,7 +8,12 @@
 # ex:
 # load_cfg_file_to_vars path-to-cfg-file:sectiontitle 'myvar=theproperty'
 # will load the value of "theproperty" into bash variable "myvar" if the property
-# exists
+# exists. The type can be specified after the variable name and before the
+# assignment either in the configuration file or when loading the variables by
+# appending ':type' to the variable name.
+# ex (config): exe.basic.sha:cmd=/some/of/path/exe_sha256.sh
+# ex (load): load_cfg_file_to_vars my.cfg 'content:file=MY_CONTENT_PATH'
+# See different types below. Types during load superseed types from the configuration.
 #.
 # If no section title is provided, then the section "default" will be loaded.
 #
@@ -16,6 +21,7 @@
 # [section title]
 # variable=value
 # variable=value
+# variable:type=value
 # ...
 #
 # Sections do not have to be separated by an empty line.

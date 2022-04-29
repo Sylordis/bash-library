@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
-# Runs a java maven program via mvn exec:java
+#------------------------------------------------------------------------------
+# Runs a java maven program via mvn exec:java.
 # Args:
-#   $1    Path to main class
+#   $1    Path to main class or main class name only
 #   $*    Arguments to pass to the executed software
+#------------------------------------------------------------------------------
 mvnrun() {
   local main_class_path="${1//./'/'}"
   local base_path="target/classes"

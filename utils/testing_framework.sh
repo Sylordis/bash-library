@@ -7,10 +7,6 @@ source "$SH_DEBUG"
 source "$SH_PATH_UTILS/mocks.sh"
 source "$SH_PATH_UTILS/working_directory.sh"
 
-# Generic
-TRUE=0
-FALSE=1
-
 # Tests results
 TESTF_FAILED_TESTS=0
 TESTF_PASSED_TESTS=0
@@ -23,7 +19,6 @@ clean_exit() {
 }
 
 #------------------------------------------------------------------------------
-# is_true()
 # Checks whether or not a variable is set.
 # Params:
 #   $1    Variable to check against
@@ -31,11 +26,10 @@ clean_exit() {
 #   0/true if set, 1/false otherwise
 #------------------------------------------------------------------------------
 is_true() {
-  [[ "$1" -eq $TRUE ]]
+  [[ "$1" -eq 0 ]]
 }
 
 #------------------------------------------------------------------------------
-# TEST_error()
 # Echoes specific error messages.
 # IMPORTANT: This will not work with anything else than an en_GB set terminal as
 #            error messages will be different acccording to language.
@@ -56,7 +50,6 @@ TEST_error() {
 }
 
 #------------------------------------------------------------------------------
-# TEST_failed()
 # Marks a test as failed.
 #------------------------------------------------------------------------------
 TEST_failed() {
@@ -65,7 +58,6 @@ TEST_failed() {
 }
 
 #------------------------------------------------------------------------------
-# TEST_passed()
 # Marks a test as passed.
 #------------------------------------------------------------------------------
 TEST_passed() {
@@ -86,6 +78,7 @@ TEST_passed() {
 #   -f <F>|--fnc <F>  Method under test that will be evaluated
 #   --feed <feed>     Pipes the food to given method as text
 #   -mb <msg>         Prints a message before the test
+#   -n <name>         Sets a name for the test which will be displayed before it
 #   --out <output>|--output <output>
 #                     Outputs given text as output (for methods that change variables).
 #                     It will be echoed as unquoted string.
@@ -101,6 +94,7 @@ test_and_assert() {
   local o_assert_opts o_msg_prefix
   local o_ps_ret_sep o_feed o_output
   local o_exp_colours=1 o_ps_ret=1 o_collect_errors=1
+  local o_test_name
   while : ; do
     case "$1" in
          -A) o_assert_opts="$2"; shift;;
@@ -109,6 +103,7 @@ test_and_assert() {
      --feed) o_feed="$2"; shift;;
    -f|--fnc) _fnc="$2"; shift;;
         -mb) o_msg_prefix="$2"; shift;;
+         -n) o_test_name="$2"; shift;;
   --out|--output) o_output="$2"; shift;;
        -psr) o_ps_ret=0;;
       +psr*) o_ps_ret=0
@@ -162,11 +157,13 @@ test_and_assert() {
     assert_opts+=" -${o_assert_opts:$i:1}"
   done
   # Assert
+  if [[ -n "$o_test_name" ]]; then
+    echo "@Test=$o_test_name"
+  fi
   assert $assert_opts "$_expected" "$_result"
 }
 
 #------------------------------------------------------------------------------
-# assert()
 # Asserts a result according to the expectations, and maintain the statistics
 # about the tests.
 # Params:
@@ -179,15 +176,15 @@ test_and_assert() {
 #------------------------------------------------------------------------------
 assert() {
   # Options setting
-  local newline=$FALSE
-  local show_length=$FALSE
-  local variable_comparison=$FALSE
+  local newline=1
+  local show_length=1
+  local variable_comparison=1
   local o_ps_ret=1
   while : ; do
     case "$1" in
-      -l) show_length=$TRUE;; # -l prints the length of the results
-      -n) newline=$TRUE;;     # -n puts every text on a new line
-      -v) variable_comparison=$TRUE;;
+      -l) show_length=0;; # -l prints the length of the results
+      -n) newline=0;;     # -n puts every text on a new line
+      -v) variable_comparison=0;;
        *) break;;
     esac
     shift
@@ -232,7 +229,6 @@ assert() {
 }
 
 #------------------------------------------------------------------------------
-# TEST_print_test_results()
 # Prints the test results according to passed or failed tests ran.
 #------------------------------------------------------------------------------
 TEST_print_test_results() {

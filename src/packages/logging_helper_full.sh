@@ -17,75 +17,10 @@
 #   basename, dirname, echo, find, printf, sed, touch, tr, mv, wc
 #==============================================================================
 
-#------------------------------------------------------------------------------
-# in_array()
-# Checks if a value is contained in an array.
-# Params:
-#   $1    Needle - the value to search for
-#   $*    Haystack - all the values to search in
-#           Don't forget to surround this argument by quotes to prevent bash
-#           expansion of values (especially while using star-character.)
-# Returns:
-#   0/true if the value is in the array, 1/false otherwise
-#------------------------------------------------------------------------------
-in_array() {
-  # Loop through the haystack
-  local v
-  for v in "${@:2}"; do
-    # Value found, return true
-    [[ "$v" == "$1" ]] && return 0
-  done
-  # Value not found, return false
-  return 1
-}
-
-#------------------------------------------------------------------------------
-# join_by()
-# Joins all the elements given as argument with one expression.
-# Params:
-#   $1    Joining string
-#   $*    Each element to join
-# Returns:
-#   All the elements joined.
-# Dependencies:
-#   echo, printf
-#------------------------------------------------------------------------------
-join_by() {
-  local d="$1";
-  shift
-  echo -n "$1"
-  shift
-  printf "%s" "${@/#/$d}"
-  echo
-}
-
-#------------------------------------------------------------------------------
-# strip_color_tags()
-# Strips all color tags from a text.
-# Params:
-#   $*    Text to strip
-# Returns:
-#   The text without any color tags.
-# Dependencies:
-#   echo, sed
-#------------------------------------------------------------------------------
-strip_color_tags() {
-  echo -e "$@" | sed -r "s:\x1B\[[0-9;]*[mK]::g"
-}
-
-#------------------------------------------------------------------------------
-# Changes all characters in a string to uppercase.
-# Apply any color tags after applying this method.
-# Params:
-#   $*    <strings..> Any string
-# Returns:
-#   The uppercased string.
-# Dependencies:
-#   tr
-#------------------------------------------------------------------------------
-to_upper() {
-  tr '[:lower:]' '[:upper:]' <<< "$@"
-}
+source "$SH_PATH_LIB/in_array.sh"
+source "$SH_PATH_LIB/join_by.sh"
+source "$SH_PATH_LIB/strip_color_tags.sh"
+source "$SH_PATH_LIB/to_upper.sh"
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # PACKAGE LOGGER_HELPER

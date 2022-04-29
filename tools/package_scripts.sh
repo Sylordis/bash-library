@@ -61,7 +61,7 @@ process_files() {
     if grep -E '^ *(source|\.) .*' "$file" | grep -qv '# *ps:noreplace'; then
       local tmp_file
       tmp_file="$(mktemp "$DIR_DIST/$(basename "$out_file").XXXXXX")"
-      awk -f "$SH_PATH_SRC/awk/replace_source_files.sh" "$file" > "$tmp_file"
+      awk -f "$SH_PATH_SRC/awk/replace_source_files.awk" "$file" > "$tmp_file"
       mv -b "$tmp_file" "$out_file"
     else
       log -v "No sourced file in '$file'."

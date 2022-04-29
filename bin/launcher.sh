@@ -82,10 +82,7 @@ welcome() {
 #==================================================================================================
 # MISC VARIABLES
 #==================================================================================================
-TRUE=0
-FALSE=1
-
-SUMMARY=$FALSE
+SUMMARY=1
 ALL_TESTS=()
 
 #==================================================================================================
@@ -98,7 +95,7 @@ do
   case "$1" in
     --help) usage; exit 0;;
     --list|-l) welcome; list_all_tests; goodbye; exit 0;;
-    --summary|-s) SUMMARY=$TRUE;;
+    --summary|-s) SUMMARY=0;;
     *) break;;
   esac
   shift
@@ -137,7 +134,7 @@ echo
 for test in "${ALL_TESTS[@]}"; do
   print_test_name "$test"
   # Launch test, redirect output to terminal
-  if [[ $SUMMARY -eq $FALSE ]]; then
+  if [[ $SUMMARY -eq 1 ]]; then
     $test
   else
     $test | tail -n 2

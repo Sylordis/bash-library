@@ -21,15 +21,28 @@ unset NAME
 
 NAME=Orange
 ADJ=shallow
-readonly answer="$NAME is but a $ADJ for $NAME"
-readonly sentence="__NAME__ is but a __ADJ__ for __NAME__"
-test_replace_patterns "$answer" "$sentence"
+test_replace_patterns -n "Basic replacements" \
+    "$NAME is but a $ADJ for $NAME" "__NAME__ is but a __ADJ__ for __NAME__"
 unset NAME ADJ
+
+NOUN=desire
+test_replace_patterns -n "Lenient option (--lenient)" \
+    "This is not the __OBJECT__ of my desire" \
+    --lenient "This is not the __OBJECT__ of my __NOUN__"
+unset NOUN
+
+NOUN=desire
+test_replace_patterns -n "Default option (--default)" \
+    "This is not the NULL of my desire" \
+    --default 'NULL' "This is not the __OBJECT__ of my __NOUN__"
+unset NOUN
 
 # Tests option variable prefix -p
 PV_NAME=Cherry
 ADJ=Sweet
-test_replace_patterns "Cherry is but a  for Cherry" -p 'PV_' "$sentence"
+test_replace_patterns -n "Variable prefix option (-p)" \
+    "Cherry is but a  for Cherry" \
+    -p 'PV_' "__NAME__ is but a __ADJ__ for __NAME__"
 unset PV_NAME ADJ
 
 # Tests option for pattern delimiters

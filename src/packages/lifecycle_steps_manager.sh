@@ -14,46 +14,8 @@
 #   echo
 #==============================================================================
 
-#------------------------------------------------------------------------------
-# Gets the index of a value in an array.
-# Params:
-#   $1    <needle> value to search for
-#   $*    <haystack..> values of the array
-# Returns:
-#   the index of the first occurence of the value in the array, or -1 if it
-#   cannot be found.
-# Dependencies:
-#   echo
-#------------------------------------------------------------------------------
-find_in_array() {
-  local v i=-1 c=0
-  for v in "${@:2}"; do
-    [[ "$1" == "$v" ]] && { i=$c; break; }
-    ((c++))
-  done
-  echo $i
-}
-
-#------------------------------------------------------------------------------
-# Checks if a value is contained in an array.
-# Params:
-#   $1    <needle> the value to search for
-#   $*    <haystack..> all the values to search in
-#         Don't forget to surround this argument by quotes to prevent bash
-#         expansion of values (especially while using star-character.)
-# Returns:
-#   0/true if the value is in the array, 1/false otherwise
-#------------------------------------------------------------------------------
-in_array() {
-  local v
-    # Loop through the haystack
-  for v in "${@:2}"; do
-    # Value found, return true
-    [[ "$v" == "$1" ]] && return 0
-  done
-  # Value not found, return false
-  return 1
-}
+source "$SH_PATH_LIB/find_in_array.sh"
+source "$SH_PATH_LIB/in_array.sh"
 
 # List containing all steps available, ordered by execution priority.
 LIFECYCLE_ALL_STEPS=()

@@ -15,41 +15,8 @@
 #   echo, grep, sed, tr
 #==============================================================================
 
-#------------------------------------------------------------------------------
-# apply_transformations()
-# Applies multiple transformations to a text, given the name of the required
-# methods to apply. The methods have to accept the text as first argument.
-# Params:
-#   $1    Text to transform
-#   $*    Methods to apply for transformation
-# Returns:
-#   The transformed text
-# Dependencies:
-#   echo
-#------------------------------------------------------------------------------
-apply_transformations() {
-  local original="$1"
-  local fnc
-  for fnc in "${@:2}"; do
-    eval "original=\"\$($fnc \"$original\")\""
-  done
-  echo "$original"
-}
-
-#------------------------------------------------------------------------------
-# check_function_exists()
-# Checks if a function is defined.
-# Params:
-#   $1    Name of the function
-# Returns:
-#   0/true if the function is defined, 1/false otherwise
-#------------------------------------------------------------------------------
-check_function_exists() {
-  local typecheck
-  typecheck="$(type -t "$1" 2> /dev/null)"
-  #shellcheck disable=SC2181
-  [[ $? -eq 0 ]] && [[ "$typecheck" == "function" ]]
-}
+source "$SH_PATH_LIB/apply_transformations.sh"
+source "$SH_PATH_LIB/check_function_exists.sh"
 
 #------------------------------------------------------------------------------
 # check_var_set()
@@ -69,20 +36,7 @@ check_var_set() {
   return 0
 }
 
-#------------------------------------------------------------------------------
-# to_lower()
-# Changes all characters in a string to lowercase.
-# Apply any color tags after applying this method.
-# Params:
-#   $*    Any string
-# Returns:
-#   The lowercased string.
-# Dependencies:
-#   tr
-#------------------------------------------------------------------------------
-to_lower() {
-  tr '[:upper:]' '[:lower:]' <<< "$@"
-}
+source "$SH_PATH_LIB/to_lower.sh"
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # PACKAGE FUNCTION_EXTENDER

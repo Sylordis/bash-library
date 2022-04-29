@@ -28,14 +28,12 @@ source "$SH_PATH_LIB/join_by.sh"
 prompt_multi() {
   local answer_pattern="__ANSWER__"
   local text_pattern="__TEXT__"
-  local FALSE=1
-  local TRUE=0
   # Initialization
   local cancel_option="C"
   local failure_message="<$answer_pattern> is not a correct answer."
-  local force=$FALSE
+  local force=1
   local header_msg="Here are the available answers:"
-  local multi_choice=$FALSE
+  local multi_choice=1
   local multi_separator=""
   local prompt_msg="Please enter your choice(s):"
   local choice_line="${answer_pattern}) $text_pattern"
@@ -47,7 +45,7 @@ prompt_multi() {
      -ap) shift; answer_pattern="$1";;
      -fm) shift; failure_message="$1";;
      -hm) shift; header_msg="$1";;
-    -mc*) multi_choice=$TRUE
+    -mc*) multi_choice=0
           if [[ "$1" == -mc=* ]]; then
             if [[ "$1" == "-mc=" ]]; then
               echo "Empty separator not allowed."
@@ -57,7 +55,7 @@ prompt_multi() {
           else
             multi_separator=","
           fi;;
-     -nc) force=$TRUE;;
+     -nc) force=0;;
       -q) shift; prompt_msg="$1";;
        *) break;;
     esac
@@ -68,7 +66,7 @@ prompt_multi() {
   if [[ -z "$result" ]]; then
     # Echo the header message
     local msg="$header_msg"
-    if [[ $multi_choice -eq $TRUE ]]; then
+    if [[ $multi_choice -eq 0 ]]; then
       msg="$msg (multi-choice)"
     fi
     echo "$msg" > /dev/tty
@@ -80,7 +78,7 @@ prompt_multi() {
       ((count++))
     done
     # Echo cancel choice
-    if [[ $force -eq $FALSE ]]; then
+    if [[ $force -eq 1 ]]; then
       echo "$choice_line" | sed -re "s/$answer_pattern/$cancel_option/g" -e "s/$text_pattern/Cancel/g" > /dev/tty
     fi
     while :; do
@@ -95,7 +93,7 @@ prompt_multi() {
       # Check every answer
       for answer_part in "${split_answer[@]}"; do
         # Check if answer is cancel
-        if [[ "$answer_part" == "$cancel_option" && $force -eq $FALSE ]]; then
+        if [[ "$answer_part" == "$cancel_option" && $force -eq 1 ]]; then
           wrong_answers=()
           answer="$cancel_option"
           break

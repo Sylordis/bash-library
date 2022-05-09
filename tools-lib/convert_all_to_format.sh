@@ -10,7 +10,7 @@
 #   --delete  Deletes source after conversion
 #------------------------------------------------------------------------------
 convert_all_to_format() {
-  local file o_delete
+  local file o_delete=1
   while : ; do
     case "$1" in
       --delete) o_delete=0;;

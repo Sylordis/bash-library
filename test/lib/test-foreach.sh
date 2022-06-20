@@ -76,12 +76,6 @@ unset err
 WD_delete
 
 WD_create A/{A1,A2} B
-# # Test of -s TODO
-# date_start="$(date '%s')"
-# test_foreach \
-#     "./A:\na\n./B:\nb\n./C:\nc" \
-#     -s 1 ls
-# date_end="$(date '%s')"
 # Test of -s error
 test_foreach \
     "ERROR[foreach]: option -s expects positive integer argument (was 'ls')." \
@@ -92,7 +86,7 @@ test_foreach \
 test_foreach \
     "ERROR[foreach]: option -s expects an argument." \
     -s
-# WD_delete
+WD_delete
 
 WD_create A/{A1,A2} B -f A/foo B/bar
 # Test of getopts

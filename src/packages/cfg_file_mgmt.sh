@@ -42,7 +42,7 @@
 #         This argument can be composed as <path>:<blockname>
 #         If no blockname is specified, the entry [default] will be considered
 #   $*    Variables operation under the pattern:
-#         <cfg-var>=<bash-variable>[:<type>]
+#         <bash-variable>=<cfg-prop>[:<type>]
 #         Different types:
 #         - file    the content of the file will be used as value
 #         - cmd     the result of the command will be used as value. This script
@@ -92,23 +92,23 @@ cfg_load_file_to_vars() {
     declare -A all_vars
     block="$(cfg_load_block "$file" "$blockname")"
     for var in "${@:2}"; do
-      cfgvar="${var%%=*}"
-      varname="${var##*=}"
+      cfgvar="${var##*=}"
+      varname="${var%%=*}"
       vartype=''
       # Extract vartype if present
-      if [[ "$varname" == *':'* ]]; then
-        vartype="${varname##*:}"
-        varname="${varname%%:*}"
+      if [[ "$cfgvar" == *':'* ]]; then
+        vartype="${cfgvar##*:}"
+        cfgvar="${cfgvar%%:*}"
       fi
       # Set variable
       local -n refvarname="$varname"
-      cfgline="$(grep -oE "^ *$cfgvar(:[^=]+)?=.*" <<< "$block")"
+      cfgline="$(grep -oE "^ *$cfgvar(:[^=]+)? ?= ?.*" <<< "$block")"
       # Determine type from config file if not already set
-      if [[ -z "$vartype" ]] && grep -qE "^ *$cfgvar:[^=]+=.*" <<< "$cfgline"; then
+      if [[ -z "$vartype" ]] && grep -qE "^ *$cfgvar:[^=]+ ?= ?.*" <<< "$cfgline"; then
         vartype="${cfgline%%=*}"
         vartype="${vartype##*:}"
       fi
-      cfgvalue="$(grep -oP "^ *$cfgvar(:[^=]+)?=\K.*" <<< "$cfgline")"
+      cfgvalue="$(grep -oP "^ *$cfgvar(:[^=]+)? ?= ?\K.*" <<< "$cfgline")"
       # Check for vartype
       #shellcheck disable=SC2034
       case "$vartype" in

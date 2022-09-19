@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
 #------------------------------------------------------------------------------
-# Checks if the provided dependencies are on the system.
+# Checks if the provided dependencies are on the system, using the 'command'
+# binary.
 # Options:
 #   -w
 #   -w=[msg]
 #             Prints a message on the error stream if the binary could not be
-#             found. -m uses a default message, -mc uses a custom message.
+#             found. A custom message can be specified, use pattern '__BIN__'
+#             for the name of the dependency.
 # Args:
 #   $*    All dependencies to be checked
 #------------------------------------------------------------------------------

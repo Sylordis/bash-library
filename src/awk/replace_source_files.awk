@@ -4,7 +4,7 @@
 # ps:noreplace.
 
 BEGIN {
-  regex=".*#ps:noreplace( +.*)?";
+  regex=".*# *ps:noreplace( +.*)?";
 }
 {
   if ($1 == "source" && !(match($0, regex))) {

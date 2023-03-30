@@ -1,10 +1,10 @@
 #!/usr/bin/env awk
 
 # This replace all sourced files from a file, unless they are followed by the comment
-# ps:noreplace.
+# pack:noreplace.
 
 BEGIN {
-  regex=".*# *ps:noreplace( +.*)?";
+  regex=".*# *pack:noreplace( +.*)?";
 }
 {
   if ($1 == "source" && !(match($0, regex))) {
@@ -14,16 +14,17 @@ BEGIN {
     } else {
       path=$2
     }
-    # Replace variables
-    origpath=path
+    # Replace all variables in the path
     while (match(path, /^\$[A-Za-z0-9_]+/) > 0) {
       varname = substr(path, RSTART+1, RLENGTH-1)
       pattern = "\\$" varname
       varvalue = ENVIRON[varname]
       gsub(pattern, varvalue, path)
     }
+    # Print actual file without shebang
     system("grep -v '#!' " path)
   } else {
+    # Print the line if it's not a source instruction
     print
   }
 }

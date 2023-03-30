@@ -17,7 +17,7 @@
 
 source "$SH_PATH_LIB/check_dependencies.sh"
 if [[ -f "$SH_DEBUG" ]]; then
-  source "$SH_DEBUG" # ps:noreplace
+  source "$SH_DEBUG" # pack:noreplace
 else
   debug() { :; }
 fi

@@ -58,7 +58,7 @@ process_files() {
       log -e "WARN: File '$file' is not reachable or readable. Skipping."
       continue
     fi
-    if grep -E '^ *(source|\.) .*' "$file" | grep -qv '# *ps:noreplace'; then
+    if grep -E '^ *(source|\.) .*' "$file" | grep -qv '# *pack:noreplace'; then
       local tmp_file
       tmp_file="$(mktemp "$DIR_DIST/$(basename "$out_file").XXXXXX")"
       awk -f "$SH_PATH_SRC/awk/replace_source_files.awk" "$file" > "$tmp_file"

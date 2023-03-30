@@ -7,7 +7,7 @@
 # The folder structure under the jacoco reports directory should be:
 #  jacoco-reports-dir/<repo>/<package>/jacoco-results
 # This is achieved on the machine that produced the unit tests via:
-#   cd /data/build_manager/projects
+#   cd <build workspace>
 #   find -type d -name 'jacoco-results' -exec cp -r --parents {} <workspace> \;
 #
 
@@ -29,6 +29,7 @@ usage() {
     echo "  Use --help for full usage."
   fi
 }
+
 RESULT_FILE='change-coverage.csv'
 GLOBAL_RESULT_FILE='global-change-coverage.csv'
 CURRENT_DIR="$(dirname "$0")"

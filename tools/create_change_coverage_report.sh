@@ -11,7 +11,7 @@
 # The folder structure under the jacoco reports directory should be:
 #  jacoco-reports-dir/<repo>/<package>/jacoco-results
 # This is achieved on the machine that produced the unit tests via:
-#   cd /data/build_manager/projects
+#   cd <building workspace>
 #   find -type d -name 'jacoco-results' -exec cp -r --parents {} <workspace> \;
 #
 
@@ -21,7 +21,6 @@ if [[ -f "$SH_DEBUG" ]]; then
 else
   debug() { :; }
 fi
-
 
 # Displays basic usage
 usage() {
@@ -120,8 +119,7 @@ while : ; do
   case "$1" in
     --debug) DEBUG_MODE=0;;
     --help) usage -f; exit 0;;
-    -v|--verbose) VERBOSE_MODE=0;;
-          *) break;;
+         *) break;;
   esac
   shift
 done

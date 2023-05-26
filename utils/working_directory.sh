@@ -118,7 +118,7 @@ working_directory_print() {
   done
   (
     cd "$TEST_WORKING_DIR"
-    find . $find_args
+    find . $find_args -not -name '.'
   )
 }
 # Shortcut aliases

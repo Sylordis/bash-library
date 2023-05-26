@@ -38,15 +38,24 @@ is_true() {
 #  [$*]   Arguments (specific to each error)
 #------------------------------------------------------------------------------
 TEST_error() {
+  _get_cant() {
+    local cant
+    case "$1" in
+      cp) cant="stat";;
+       *) cant="$1";;
+    esac
+    echo "$cant"
+  }
   local ret=""
   local err="$1"
   shift
   case "$err" in
     CMD_NOT_FOUND) ret="$1: line $2: $3: command not found";;
     DIR_NOT_FOUND) ret="Directory $1 doesn't exist";;
-    NO_FILE_OR_DIR) ret="$1: cannot $1 '$2': No such file or directory";;
+    NO_FILE_OR_DIR) ret="$1: cannot $(_get_cant "$1") '$2': No such file or directory";;
   esac
   echo "$ret"
+  unset _get_cant
 }
 
 #------------------------------------------------------------------------------

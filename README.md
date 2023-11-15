@@ -7,6 +7,18 @@ Most of those scripts are kept up-to-date at various times but I try to maintain
 
 Each proposed library has its own documentation, read it carefully before using them.
 
+## What you can find here
+- executables destined to help use this library.
+- libraries (to be sourced).
+- packages (to be sourced).
+- some completion scripts (incl. for *some* previous items listed, to be sourced).
+- animation scripts (to be sourced).
+  - ... and launchers for those animations to have a preview and how to use them (kind of).
+- utility scripts (incl `debug.sh` and bash unit testing framework).
+- Third party software helpers (`tools-lib`) to add extra commands to them or ease their use (to  be sourced).
+- some wild bash tests to be kept for information and posterity.
+- some miscellaneous tools.
+
 ## Dependencies and sourced files
 All scripts dependencies are written down in their documentation.
 
@@ -15,17 +27,21 @@ Some scripts are sourcing some other files from this library, making them unusab
 All scripts that have sourced files are taking them from this library, and this library only, but using the defined variables from the profiles provided in the `bin` directory.
 Please check the [usage section](#usage) for more information.
 
-## Structure
-- libraries (to be sourced).
-- packages (to be sourced).
-- some completion scripts (incl. for *some* previous items listed, to be sourced).
-- animation scripts (to be sourced).
-  - ... and launchers for those animations to have a preview and how to use them (kind of).
-- utility scripts (incl `debug.sh` and bash unit testing framework).
-- Third party software helpers (`tools-lib`) to add extra commands to them or
-  ease their use (to  be sourced).
-- some wild bash tests to be kept for information and posterity.
-- some miscellaneous tools.
+## Detailed structure
+- `bin` executables to help using this repo.
+  - `animations` executables to showcase the animation source files.
+- `man` manual pages.
+- `src` directory containing all source files. None of them are executables.
+  - `animation` bash animations in order to prettify waiting for other processes.
+  - `awk` awk source files
+  - `completion` completion files for some `lib` or `packages`.
+  - `lib` core source files of this library, each file contains a method of the same name and maybe some quality-of-life shortcuts.
+  - `packages` core source files of this library for frameworks and bigger libraries that contain more than one method.
+- `test` unit tests for the source files (libs and packages).
+- `tools` random tools for every day life as executables. Some can use sources from this repo.
+- `tools-lib` sources for quality of life regarding every day CLI softwares.
+- `utils` utilitaries files that are used in this repo. This is where you can find the `debug.sh` script which helps you dumping bash variables.
+- `wild` wild bash tests for posterity and bash/console behaviours.
 
 ## Development and testing
 Everything in the libraries and packages has been unit tested (as much as one can with bash) and can be checked from the `./bin/launcher.sh`.
@@ -46,5 +62,21 @@ source "$SH_PATH/bin/source_libs.sh"
 alias reload='source ~/.bashrc'
 alias bashtest='$SH_PATH/bin/launcher.sh'
 ```
+
+# Help
+
+Each file should have its own documentation and some man pages are being created (when time allows).
+
+# Author & contributors
+
+The only contributor and author is Sylvain "Sylordis" Domenjoud.
+
+# License
+
+This project is distributed under the [DBAD license](https://dbad-license.org/).
+
+# Bug report
+
+Please report any bug you find at https://github.com/Sylordis/bash-library/issues
 
 Have fun, stay scripty!

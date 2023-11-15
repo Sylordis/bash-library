@@ -53,6 +53,7 @@ TEST_error() {
     CMD_NOT_FOUND) ret="$1: line $2: $3: command not found";;
     DIR_NOT_FOUND) ret="Directory $1 doesn't exist";;
     NO_FILE_OR_DIR) ret="$1: cannot $(_get_cant "$1") '$2': No such file or directory";;
+    GET_OPS_MISSING_ARG) ret="$1: option requires an argument -- $2";;
   esac
   echo "$ret"
   unset _get_cant

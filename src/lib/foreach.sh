@@ -8,9 +8,10 @@
 #         Use __DIR__ as a placeholder for the name of the folder
 # Options:
 #   -c      Adds colours to output
+#   -d      Includes dot directories (except current and previous)
 #   -e      Command is only one argument to eval
 #   -f      Provides a list of all directories for which the command failed
-#   -l args Arguments for find
+#   -l args Arguments for find, overrides -d
 #   -q      Quiet mode. Do not print the folder names
 #   -s N    Sleep N seconds between each operation
 # Dependencies:
@@ -21,15 +22,17 @@ foreach() {
   _c_fail() { echo "$@"; }
   local dir short _opt
   local _opt_sleep=0 _opt_eval=1 _opt_failed=1 _opt_quiet=1 _opt_colour=1
-  local find_args='-maxdepth 1 -type d -not -name . -not -name .. -prune'
+  local _opt_include_dot=1
   _failures=()
+  _find_args=()
   # Options check
-  while getopts ':cefl:qs:' _opt; do
+  while getopts ':cdefl:qs:' _opt; do
     case "$_opt" in
       c) _opt_colour=0;;
+      d) _opt_include_dot=0;;
       e) _opt_eval=0;;
       f) _opt_failed=0;;
-      l) find_args="${OPTARG}";;
+      l) read -ra _find_args <<< "$OPTARG";;
       q) _opt_quiet=0;;
       s) _opt_sleep="${OPTARG}"
          if ! [[ "$_opt_sleep" =~ ^(0\.)?[0-9]+$ ]]; then
@@ -43,10 +46,18 @@ foreach() {
     esac
   done
   shift $((OPTIND-1))
+  # Finish find command
+  if [[ "${#find_args[@]}" -eq 0 ]]; then
+    if [[ $_opt_include_dot -eq 0 ]]; then
+      _find_args=(-mindepth 1 -maxdepth 1 -type d -prune)
+    else
+      _find_args=(-mindepth 1 -maxdepth 1 -not -path './.*' -type d -prune)
+    fi
+  fi
   # Redefine output methods
   if [[ $_opt_colour -eq 0 ]]; then
-    _c_dir() { echo "\e[94m$*\e[0m"; }
-    _c_fail() { echo "\e[31m$*\e[0m"; }
+    _c_dir() { echo -e "\e[94m$*\e[0m"; }
+    _c_fail() { echo -e "\e[31m$*\e[0m"; }
   fi
   # Foreach directory
   while read -r dir; do
@@ -67,15 +78,15 @@ foreach() {
     fi
     # Make it sleep if requested
     [[ $_opt_sleep -gt 0 ]] && sleep "$_opt_sleep"
-  done < <(find . $find_args)
+  done < <(find . "${_find_args[@]}")
   # Print failures if list was constructed
   if [[ ${#_failures[@]} -gt 0 ]]; then
     [[ $_opt_quiet -eq 1 ]] && echo
     echo -e "$(_c_fail "Failures[${#_failures[@]}]:")" "${_failures[@]}"
   fi
-  unset _failures _c_dir _c_fail
+  unset _failures _c_dir _c_fail _find_args
 }
-# Alias to iterate on all git repositories located under current directory
+# Shortcut to iterate on all git repositories located under current directory
 forgit() {
   foreach -l "-name .git -prune -exec dirname {} ;" "$@"
 }

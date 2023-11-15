@@ -40,7 +40,7 @@ test_foreach \
     -c ls
 WD_delete
 
-WD_create A B C -f A/a B/b C/c
+WD_create A B C .D -f A/a B/b C/c
 # Test folder modification
 test_foreach \
     "./A:\n./B:\n./C:" \
@@ -56,6 +56,15 @@ test_foreach \
   "./A:\n./B:\n./C:" \
   -e "echo '__DIR__:hello' > testy"
 assert $'A:hello\nB:hello\nC:hello' "$(find "$(WD_path)" -name 'testy' | xargs cat)"
+WD_delete
+
+WD_create A .D
+# Test of -d
+test_foreach "./.D:\n./A:" \
+    -d touch myfile
+assert \
+    $'./.D/myfile\n./A/myfile' \
+    "$(WD_print -f)"
 WD_delete
 
 WD_create A/{A1,A2} B

@@ -5,10 +5,10 @@
 foreach \- run a command on each local directory
 .SH SYNOPSIS
 .B foreach
-[-cefq] [-l <args>] [-s <sleep>]
+[-cdefq] [-l <args>] [-s <sleep>]
 <command..>
 .SH DESCRIPTION
-Foreach goes through each directory in the current working one and executes a provided command on them, outputing its result. Even if a command fails, foreach will not and continue processing all directories. One can use the placeholder __DIR__ in the command that will be replaced by the current directory's name.
+Foreach goes through each directory (except dot ones if -d is not specified) in the current working one and executes a provided command on them, outputing its result. Even if a command fails, foreach will not and continue processing all directories. One can use the placeholder __DIR__ in the command that will be replaced by the current directory's name.
 .TP
 Foreach will print the currently processed directory, unless -q is specified, and display the result of the command.
 .TP
@@ -17,6 +17,9 @@ Default find arguments are: -maxdepth 1 -type d -not -name . -not -name .. -prun
 .TP
 .BR \-c
 Adds colours to output.
+.TP
+.BR \-d
+Will also run the command for dot directories, which would otherwise be ignored.
 .TP
 .BR \-e
 Use this option to specify that the provided command has to be evaluated during runtime.

@@ -114,13 +114,13 @@ table_configure() {
     case "$borders" in
   1|n|no|none) borders=1 ;;
       0|y|yes) borders=0 ;;
-          *) echo "ERROR: Unknown value '$borders' for table border." >& 2
+          *) echo "ERROR[$FUNCNAME]: Unknown value '$borders' for table border." >& 2
              error=1 ;;
     esac
   fi
   # Columns
   if [[ ${#col_sizes[@]} -eq 0 ]] && [[ $ncols -eq 0 ]]; then
-    echo "ERROR: No columns defined for table." >& 2
+    echo "ERROR[$FUNCNAME]: No columns defined for table." >& 2
     error=1
   else
     if [[ -n "$ncols" ]] && [[ $ncols -eq 0 ]]; then

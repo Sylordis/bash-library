@@ -1,0 +1,43 @@
+.\" Manpage for foreach.
+.\" Contact s.domenjoud@gmail.com to correct errors or typos.
+.TH man 8 "15 November 2023" "1.0" "foreach man page"
+.SH NAME
+foreach \- run a command on each local directory
+.SH SYNOPSIS
+.B foreach
+[-cefq] [-l <args>] [-s <sleep>]
+<command..>
+.SH DESCRIPTION
+Foreach goes through each directory in the current working one and executes a provided command on them, outputing its result. Even if a command fails, foreach will not and continue processing all directories. One can use the placeholder __DIR__ in the command that will be replaced by the current directory's name.
+.TP
+Foreach will print the currently processed directory, unless -q is specified, and display the result of the command.
+.TP
+Default find arguments are: -maxdepth 1 -type d -not -name . -not -name .. -prune.
+.SH OPTIONS
+.TP
+.BR \-c
+Adds colours to output.
+.TP
+.BR \-e
+Use this option to specify that the provided command has to be evaluated during runtime.
+.TP
+.BR \-f
+Provides a list of all directories for which the command failed, i.e. the command returned with an error code (error status <> 0).
+.TP
+.BR \-l " <args>"
+Specifies arguments for the find command, replacing the default ones.
+.TP
+.BR \-q
+Quiet mode, do not print the directory names when marching through them but the commands outputs will still be.
+.TP
+.BR \-s " <N>"\fR
+Sleep N seconds between each directory processing.
+.SH EXIT STATUS
+Unless a missing dependency or deeper error, foreach will always exit with status 0.
+.SH BUGS
+No known bugs.
+Please report any you find at https://github.com/Sylordis/bash-library/issues
+.SH SEE ALSO
+.BR echo (1) ", " eval(1) ", " find (1)
+.SH AUTHOR
+Sylvain Domenjoud (s.domenjoud@gmail.com)

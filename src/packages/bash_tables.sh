@@ -105,7 +105,7 @@ table_configure() {
                            shift ;;
               # Leftover
               *) [[ $# -eq 0 ]] && break
-                 echo "ERROR: Unknown flag '$1'." >& 2; return 1;;
+                 echo "ERROR[$FUNCNAME]: Unknown flag '$1'." >& 2; return 1;;
     esac
     shift
   done

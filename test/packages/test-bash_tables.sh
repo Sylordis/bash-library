@@ -7,10 +7,10 @@ source "$SH_PATH_UTILS/testing_framework.sh"
 source "$SH_PATH_PACKS/bash_tables.sh"
 
 # Errors
-test_and_assert --with-errors --fnc table_configure "ERROR: No columns defined for table."
-test_and_assert --with-errors --fnc table_configure "ERROR: Unknown flag '-hello'." -hello
-test_and_assert --with-errors --fnc table_configure "ERROR: Unknown value 'fiawue' for table border.
-ERROR: No columns defined for table." --borders fiawue
+test_and_assert --with-errors --fnc table_configure "ERROR[table_configure]: No columns defined for table."
+test_and_assert --with-errors --fnc table_configure "ERROR[table_configure]: Unknown flag '-hello'." -hello
+test_and_assert --with-errors --fnc table_configure "ERROR[table_configure]: Unknown value 'fiawue' for table border.
+ERROR[table_configure]: No columns defined for table." --borders fiawue
 
 
 table_configure -c=20,15,*,15 --size=80 --calign3=right

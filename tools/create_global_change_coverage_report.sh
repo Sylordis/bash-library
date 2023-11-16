@@ -13,7 +13,11 @@
 
 source "$SH_PATH_LIB/check_dependencies.sh"
 
+#------------------------------------------------------------------------------
 # Displays basic usage
+# Options:
+#     -f    Displays full usage.
+#------------------------------------------------------------------------------
 usage() {
   echo "usage: $(basename "$0") <Repo-workspace> <UT-workspace> <Baseline revision>"
   if [[ "$1" == "-f" ]]; then
@@ -50,12 +54,13 @@ if [[ $# -lt 3 ]]; then
   exit 1
 fi
 
+# Also requires dependencies from create_change_coverage_report.sh
 check_dependencies basename dirname find tail tee || exit 1
 
 # Parse each repos
 while read -r repo; do
   repo_name="$(basename "$repo")"
-  echo $repo_name
+  echo "$repo_name"
   # Call subscript
   "$CURRENT_DIR"/create_change_coverage_report.sh \
       "$1/$repo_name" "$2/$repo_name" "$3"\
@@ -66,4 +71,4 @@ done < <(find "$2" -maxdepth 1 -mindepth 1 -type d)
 echo "package,file,lines changed,size,%change,lines missed,lines covered,%coverage" \
     > "$2/$GLOBAL_RESULT_FILE"
 # Aggregate all result files without the header
-find "$2" -name "$RESULT_FILE" -type f | xargs tail -q -n+2 >> "$2/$GLOBAL_RESULT_FILE"
+find "$2" -name "$RESULT_FILE" -type f -print0 | xargs tail -q -n+2 >> "$2/$GLOBAL_RESULT_FILE"

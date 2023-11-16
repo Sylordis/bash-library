@@ -151,16 +151,16 @@ table_configure() {
       adaptwidth=$(( adaptwidth / ntoadapt ))
       for index in $(seq 0 $((ncols - 1))); do
         if [[ $index -ge ${#col_sizes[@]} ]]; then
-          col_sizes[$index]=$adaptwidth
+          col_sizes[index]=$adaptwidth
         elif [[ "${col_sizes[$index]}" == '*' ]]; then
-          col_sizes[$index]=$adaptwidth
+          col_sizes[index]=$adaptwidth
         fi
       done
     fi
     # Adapt * columns and set alignment
     for index in $(seq 0 $((${#col_sizes[@]} - 1))); do
       [[ "${col_sizes[$index]}" == '*' ]] && col_sizes[$index]=$adaptwidth
-      cols_aligns[$index]="${cols_aligns_specific[$index]-$global_align}"
+      cols_aligns[index]="${cols_aligns_specific[$index]-$global_align}"
     done
   fi
   # Set if all good

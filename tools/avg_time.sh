@@ -1,10 +1,12 @@
 #! /usr/bin/env bash
 
+#------------------------------------------------------------------------------
 # Outputs the average time of the execution of a command a given number of time.
 # Thanks to https://stackoverflow.com/a/54920339/1467837.
 # Args:
-#       $1      Number of times to repeat the command
-#       $2      Command to repeat
+#       $1      <retries>   Number of times to repeat the command
+#       $2      <cmd>   Command to repeat
+#------------------------------------------------------------------------------
 avg_time() {
     n=$1; shift
     (($# > 0)) || return                   # bail if no command given

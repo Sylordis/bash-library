@@ -5,7 +5,7 @@
 clean_exit() {
   local ps_exit=$?
   tput cnorm
-  exit $?
+  exit $ps_exit
 }
-trap clean_exit INT TERM EXIT KILL QUIT
+trap clean_exit INT TERM EXIT QUIT
 tput civis

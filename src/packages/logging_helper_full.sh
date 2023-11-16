@@ -272,7 +272,6 @@ _logger_check_set_config() {
   if in_array "$var" "${_possible_values[@]}"; then
     # If yes, set the new variable
     local -n new_var="$3"
-    # shellcheck disable=SC2034 linked variable
     new_var="$var"
     ps_ret=0
   else

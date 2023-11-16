@@ -5,8 +5,8 @@
 # Without --prefix or --suffix, it is preferable to only use cp command.
 #
 # Args:
-#   $*    Source files to copy
-#   $last Target where to copy the files
+#   $*    <sources..>  Source files to copy
+#   $last <target>  Target where to copy the files
 #
 # Options:
 #   -v      Verbose mode (outputs cp verbose).

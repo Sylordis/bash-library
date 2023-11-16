@@ -47,7 +47,7 @@ foreach() {
   done
   shift $((OPTIND-1))
   # Finish find command
-  if [[ "${#find_args[@]}" -eq 0 ]]; then
+  if [[ "${#_find_args[@]}" -eq 0 ]]; then
     if [[ $_opt_include_dot -eq 0 ]]; then
       _find_args=(-mindepth 1 -maxdepth 1 -type d -prune)
     else

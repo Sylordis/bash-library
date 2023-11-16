@@ -12,7 +12,7 @@
 #------------------------------------------------------------------------------
 in_array() {
   local v
-    # Loop through the haystack
+  # Loop through the haystack
   for v in "${@:2}"; do
     # Value found, return true
     [[ "$v" == "$1" ]] && return 0

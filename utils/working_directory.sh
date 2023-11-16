@@ -14,7 +14,7 @@ TEST_WORKING_DIR="/tmp/bash_wd"
 #------------------------------------------------------------------------------
 working_directory_clean() {
   if [[ -d "$TEST_WORKING_DIR" ]]; then
-    rm -rf "$TEST_WORKING_DIR/"*
+    rm -rf --preserve-root "${TEST_WORKING_DIR:?}/"*
   fi
 }
 # Shortcut aliases
@@ -28,7 +28,7 @@ WD_clean() { working_directory_clean "$@"; }
 #  [-f]   Files after this flag will be created as empty files
 #------------------------------------------------------------------------------
 working_directory_add() {
-  cd "$TEST_WORKING_DIR"
+  cd "$TEST_WORKING_DIR" || return 1
   local var
   for var; do
     case "$var" in

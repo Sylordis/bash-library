@@ -54,7 +54,8 @@ replace_patterns() {
   local txt patt value patt_var var_name
   txt="$1"
   # Get all patterns
-  patterns=($(grep -o -Ee "$o_delim_b([A-Z0-9]+_)*[A-Z0-9]+$o_delim_e" <<< "$1" | sort -u))
+  patterns=()
+  readarray -t patterns < <(grep -o -Ee "$o_delim_b([A-Z0-9]+_)*[A-Z0-9]+$o_delim_e" <<< "$1" | sort -u)
   for patt in "${patterns[@]}"; do
     # Get variable name corresponding to the pattern
     patt_var="$(sed -re "s&^$o_delim_b(.*)$o_delim_e\$&\1&g" <<< "$patt")"

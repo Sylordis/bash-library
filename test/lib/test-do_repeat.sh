@@ -5,7 +5,7 @@ source "$SH_PATH_UTILS/testing_framework.sh"
 
 # Some tests variables
 _script="$SH_PATH_LIB/do_repeat.sh"
-_eval_line=$(grep -nE "eval .*@" "$_script" | cut -d ':' -f 1)
+_eval_line=$(grep -n '${@:2}' "$_script" | cut -d ':' -f 1)
 _cmd_not_found_msg="$(TEST_error CMD_NOT_FOUND "$_script" "$_eval_line" "blah")"
 
 # Sources

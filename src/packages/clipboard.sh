@@ -14,7 +14,7 @@ clip_put() {
   if [[ -n "$(type -P xclip)" ]] && [[ -z "$(type -P putclip)" ]]; then
         putcmd="$(type -P xclip) -sel clip -i"
   fi
-  echo "$*" | putclip
+  echo "$@" | $putcmd
 }
 
 #------------------------------------------------------------------------------

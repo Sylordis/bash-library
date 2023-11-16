@@ -37,7 +37,7 @@ Please check the [usage section](#usage) for more information.
   - `completion` completion files for some `lib` or `packages`.
   - `lib` core source files of this library, each file contains a method of the same name and maybe some quality-of-life shortcuts.
   - `packages` core source files of this library for frameworks and bigger libraries that contain more than one method.
-- `test` unit tests for the source files (libs and packages).
+- `test` unit tests for the source files (libs and packages in `src`).
 - `tools` random tools for every day life as executables. Some can use sources from this repo.
 - `tools-lib` sources for quality of life regarding every day CLI softwares.
 - `utils` utilitaries files that are used in this repo. This is where you can find the `debug.sh` script which helps you dumping bash variables.

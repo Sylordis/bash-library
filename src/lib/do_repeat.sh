@@ -14,7 +14,7 @@ do_repeat() {
   # Check if first argument is a number
   if [[ "$1" =~ ^[0-9]+$ ]]; then
     for _ in $(seq 1 "$1"); do
-      eval "${@:2}"
+      "${@:2}"
     done
   fi
 }

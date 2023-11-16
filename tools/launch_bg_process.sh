@@ -58,9 +58,7 @@ fi
 if [[ -n "$O_SOURCE" ]]; then
   # Check if file exists can be sourced
   if [[ -x "$O_SOURCE" ]]; then
-    source "$O_SOURCE"
-    # Check file has been sourced
-    if [[ $? -eq 0 ]]; then
+    if source "$O_SOURCE"; then
         if [[ $O_VERBOSE -eq 0 ]]; then
           echo -e "$line_begin $O_SOURCE sourced"
         fi
@@ -90,7 +88,7 @@ if [[ -n "$(type -t "$1")" ]]; then
   "$@" &
   ps_pid=$!
   if [[ -n "$O_TIME_LIMIT" ]]; then
-    sleep $O_TIME_LIMIT
+    sleep "$O_TIME_LIMIT"
     # Clean kill
     kill -9 $ps_pid
     if [[ $? -eq 0 ]]; then

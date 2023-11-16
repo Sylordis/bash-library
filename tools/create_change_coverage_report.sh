@@ -14,6 +14,7 @@
 #   cd <building workspace>
 #   find -type d -name 'jacoco-results' -exec cp -r --parents {} <workspace> \;
 #
+# Dependencies: basename, bc, cut, find, git, grep, read, sdiff, wc
 
 source "$SH_PATH_LIB/check_dependencies.sh"
 if [[ -f "$SH_DEBUG" ]]; then
@@ -22,11 +23,12 @@ else
   debug() { :; }
 fi
 
+#------------------------------------------------------------------------------
 # Displays basic usage
+# Options:
+#     -f    Displays full usage.
+#------------------------------------------------------------------------------
 usage() {
-  #   $1    Path to git repo
-  #   $2    Path to jacoco reports of git repo
-  #   $3    Commit to check from
   echo "usage: $(basename "$0") <git-repo> <jacoco-reports-dir> <baseline-revision>"
   if [[ "$1" == '-f' ]]; then
     echo "  with
@@ -44,13 +46,17 @@ INDEX_MISSED=8
 # Jacoco report CSV column index for covered
 INDEX_COVERED=9
 
+#------------------------------------------------------------------------------
 # Retrieves the statistics of coverage from the Jacoco CSV report.
-#   $1    Path to jacoco reports
+# Args:
+#   $1    Path to jacoco reports directory
 #   $2    File
+#------------------------------------------------------------------------------
 get_file_coverage() {
-  local csvfile="$1/$(cut -d '/' -f 2 <<< "$2")/jacoco-results/report.csv"
+  local csvfile
   local classname
   local missed covered coverage csvline t_missed t_covered
+  csvfile="$1/$(cut -d '/' -f 2 <<< "$2")/jacoco-results/report.csv"
   classname="$(basename "${2%.java}")"
   # If the reports exists
   if [[ -r "$csvfile" ]]; then
@@ -76,41 +82,55 @@ get_file_coverage() {
   echo ",$missed,$covered,${coverage}%"
 }
 
+#------------------------------------------------------------------------------
+# Parses all java files from git repo which are not test files in order to
+# produce the data.
+# Args:
 #   $1    Path to git repo
 #   $2    Path to jacoco reports of git repo
 #   $3    Commit to check from
+#------------------------------------------------------------------------------
 parse_all_files() {
   local first_commit
-  pushd "$1" > /dev/null
+  pushd "$1" > /dev/null || return 1
   first_commit="$3"
-    # first_commit="FOC2_WP3X_BASELINE"
-  # first_commit="$(git log --reverse --pretty="%H" | head -1)"
   while read -r file; do
     echo -n "$(parse_file_diff_from "$file" "$first_commit" HEAD)"
-    echo "$(get_file_coverage "$2" "$file")"
-  done < <(find -type f -name '*.java' -not -name '*Test*')
-  popd > /dev/null
+    get_file_coverage "$2" "$file"
+  done < <(find . -type f -name '*.java' -not -name '*Test*')
+  popd > /dev/null || return 1
 }
 
+#------------------------------------------------------------------------------
+# Uses Git to produce statistics about the a file between 2 revisions.
+#  - If the file is new, then it was 100% changed and the number of changed lines
+#    is the number of lines of the files.
+#  - If the file is not new, checks the number of changed lines with sdiff.
+#  - If the file was deleted, simply outputs "deleted".
+# Args:
 #   $1    Path to file
 #   $2    Commit 1
 #   $3    Commit 2
+# Output:
+#   A csv line with:
+#   package, file, lines changed, number of lines, number of modified lines
+#------------------------------------------------------------------------------
 parse_file_diff_from() {
     local added deleted path nlines
-  nlines="$(wc -l < "$1")"
-    read -r added deleted path <<< $(git diff --numstat "$2".."$3" -- "$1")
+    nlines="$(wc -l < "$1")"
+    read -r added deleted path <<< "$(git diff --numstat "$2".."$3" -- "$1")"
     if [[ ${added-0} -eq $nlines ]]; then
-    nlines_changed=$nlines
-    percent=100
-  else
-    nlines_changed="$(sdiff -B -b -s <(git show "$2:$1") <(git show "$3:$1") | wc -l)"
-    if [[ $nlines -eq 0 ]]; then
-      nlines_changed="deleted"
-      percent="deleted"
+      nlines_changed=$nlines
+      percent=100
     else
-      percent=$(bc <<< "100*$nlines_changed/$nlines")
+      nlines_changed="$(sdiff -B -b -s <(git show "$2:$1") <(git show "$3:$1") | wc -l)"
+      if [[ $nlines -eq 0 ]]; then
+        nlines_changed="deleted"
+        percent="deleted"
+      else
+        percent=$(bc <<< "100*$nlines_changed/$nlines")
+      fi
     fi
-  fi
     echo "$(cut -d '/' -f 2 <<< "$1"),$(basename "${1%.java}"),$nlines_changed,$nlines,${percent}%"
 }
 
@@ -131,7 +151,7 @@ if [[ "$#" -lt 3 ]]; then
   exit 1
 fi
 
-check_dependencies basename bc cut find git sdiff wc || exit 1
+check_dependencies basename bc cut find git grep sdiff wc || exit 1
 
 echo "package,file,lines changed,size,%change,lines missed,lines covered,%coverage"
 parse_all_files "$@"

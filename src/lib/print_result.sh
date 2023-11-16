@@ -18,7 +18,7 @@
 #   echo
 #------------------------------------------------------------------------------
 print_result() {
-  local prefix_failure prefix_success suffix_failure suffix_success cmd
+  local prefix_failure prefix_success suffix_failure suffix_success
   local msg msg_failure msg_success
   # Parse options
   while : ; do

@@ -17,7 +17,7 @@
 #   DEBUG_MODE={0,1}            If set to 1, this method will not output anything.
 #                               Default value: 0.
 # Params:
-#   $*    <args..> Messages to log / variable names to dump
+#   $*    <args..>  Messages to log / variable names to dump
 # Options:
 #   -t    Displays function tree call
 #   -np   Prevents prefix display
@@ -42,8 +42,9 @@ debug() {
   done
   [[ $_o_mode -eq 1 ]] && return 0
   # Prefix, check if it has to be displayed
-  if [[ $_o_prefix -eq 0 ]] && ([[ $_o_src -eq 0 ]] || \
-      ([[ $_o_src -eq 1 ]] && [[ ${#FUNCNAME[@]} -gt 2 ]])); then
+  if [[ $_o_prefix -eq 0 ]] \
+      && { [[ $_o_src -eq 0 ]] || \
+      { [[ $_o_src -eq 1 ]] && [[ ${#FUNCNAME[@]} -gt 2 ]]; }; }; then
     _msg+="\e[94m["
     # Add source name
     [[ $_o_src -eq 0 ]] && _msg="$_msg$(basename "$0")"
@@ -74,7 +75,8 @@ debug() {
     fi
     # Check if there is any data to use (= variable)
     if [[ -n "$_data" ]]; then
-      local _var_type="$(cut -d ' ' -f 2 <<< "$_data")"
+      local _var_type
+      _var_type="$(cut -d ' ' -f 2 <<< "$_data")"
       case "$_var_type" in
         -a) # Normal arrays, reprint array and add cardinality
             local -n _array="$1"

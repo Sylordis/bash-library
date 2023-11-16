@@ -117,7 +117,8 @@ get_extender_pattern_value() {
   core="$(get_extender_core "$1")"
   patt="$(get_extender_pattern "$1")"
   declaration="$(grep -o "$patt" <<< "$FNC_EXT_NAME_PATTERN" | sed -re "s/%([^%]+)%/\1/g")"
-  elements=($(echo "${declaration##"${core}"}" | tr : ' '))
+  elements=()
+  [[ "$declaration" == *":"* ]] && IFS=':' read -ra elements <<< "${declaration##"${core}:"}"
   replacement="$(apply_transformations "$2" "${elements[@]}")"
   unset elements
   echo "$replacement"

@@ -33,9 +33,9 @@ usage() {
     git-repo
       Directory of the git repo under coverage test.
     jacoco-reports-dir
-      Directory with jacoco reports in it
+      Directory with jacoco reports in it.
     baseline-revision
-      Baseline to check against for code change, usually 'FOC2_WP3X_BASELINE'."
+      Git revision (commit id or tag) to check the differences from."
   fi
 }
 

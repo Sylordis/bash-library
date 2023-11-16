@@ -61,7 +61,7 @@ done
 create_lists "$@"
 
 # Sanity checks
-if [[ ${#HOSTS[@)]} -eq 0 -or ${#FILES[@]} -eq 0 ]]; then
+if [[ ${#HOSTS[@]} -eq 0 ]] || [[ ${#FILES[@]} -eq 0 ]]; then
   echo "ERROR: Wrong number of arguments." >& 2
   usage
   exit 1

@@ -2,7 +2,7 @@
 
 #------------------------------------------------------------------------------
 # Checks if the provided dependencies are on the system, using the 'command'
-# binary.
+# binary (should be built-in).
 # Options:
 #   -w
 #   -w=[msg]
@@ -16,7 +16,7 @@ check_dependencies() {
   local dependency error_msg ps_ret=0
   while : ; do
     case "$1" in
-      -w) error_msg="ERROR: cannot find dependency __BIN__ on the system.";;
+      -w) error_msg="ERROR: cannot find dependency '__BIN__' on the system.";;
       -w=*) error_msg="${1#-w=}";;
       *) break;;
     esac

@@ -14,21 +14,21 @@ source "$SH_PATH_LIB/log.sh"
 #   -f    Displays full usage
 #------------------------------------------------------------------------------
 usage() {
-  echo "usage: $(basename "$0") [-d <dir>] <scripts..>"
+  echo "usage: $(basename "$0") [options] [-o <dir>] <scripts..>"
   if [[ "$1" == '-f' ]]; then
   echo "  with:
     scripts
       All scripts to package.
   options:
-    -d dir
-      Specify an output directory for the packaged scripts.
-      Default is '$DEFAULT_DIR_DIST'.
     --debug
       Turns on the debug mode.
-    --help
+    -h, --help
       Prints this help message.
-    -v
-      Turns on the verbose mode."
+    -v, --verbose
+      Turns on the verbose mode.
+    -o <dir>, --output <dir>
+      Specify an output directory for the packaged scripts.
+      Default is '$DEFAULT_DIR_DIST'."
   else
     echo "  Use option --help for full usage."
   fi
@@ -74,10 +74,11 @@ process_files() {
 # Option check
 while : ; do
   case "$1" in
-    -d) DIR_DIST="$2"; shift;;
     --debug) DEBUG_MODE=0;;
-    --help) usage -f; exit 0;;
-    -v) VERBOSE_MODE=0;;
+    -h|--help) usage -f; exit 0;;
+    -o|--output) DIR_DIST="$2"; shift;;
+    -v|--verbose) VERBOSE_MODE=0
+                  VERBOSE_OPTIONS=(-v);;
      *) break;;
   esac
   shift
@@ -88,11 +89,6 @@ if [[ $# -lt 1 ]]; then
   log -e "ERROR: Wrong number of arguments."
   usage
   exit 1
-fi
-
-# Check options
-if [[ "$VERBOSE_MODE" -eq 0 ]]; then
-  VERBOSE_OPTIONS=(-v)
 fi
 
 # Output dir

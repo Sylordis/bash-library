@@ -162,15 +162,17 @@ test_and_assert() {
   # Message and assert
   [[ -n "$o_msg_prefix" ]] && echo -n "$o_msg_prefix"
   # Process assert_ops
-  local i assert_opts
+  local i
+  assert_opts=()
   for ((i=0;i<${#o_assert_opts};i++)); do
-    assert_opts+=" -${o_assert_opts:$i:1}"
+    assert_opts+=("-${o_assert_opts:$i:1}")
   done
   # Assert
   if [[ -n "$o_test_name" ]]; then
     echo "@Test=$o_test_name"
   fi
-  assert $assert_opts "$_expected" "$_result"
+  assert "${assert_opts[@]}" "$_expected" "$_result"
+  unset assert_opts
 }
 
 #------------------------------------------------------------------------------

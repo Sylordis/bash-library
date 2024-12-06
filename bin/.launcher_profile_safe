@@ -10,5 +10,6 @@
 [[ -z "$SH_PATH_PACKS" ]] && export SH_PATH_PACKS="$SH_PATH_SRC/packages"
 [[ -z "$SH_PATH_TEST" ]] && export SH_PATH_TEST="$SH_PATH/test"
 [[ -z "$SH_PATH_UTILS" ]] && export SH_PATH_UTILS="$SH_PATH/utils"
+[[ -z "$SH_PATH_TOOLS" ]] && export SH_PATH_TOOLS="$SH_PATH/tools"
 [[ -z "$SH_PATH_TOOLSLIB" ]] && export SH_PATH_TOOLSLIB="$SH_PATH/tools-lib"
 [[ -z "$SH_DEBUG" ]] && export SH_DEBUG="$SH_PATH_UTILS/debug.sh"

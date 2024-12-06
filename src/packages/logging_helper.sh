@@ -1,5 +1,14 @@
 #! /usr/bin/env bash
 
+# This package provides different methods to ouput messages in a harmonised way
+# on different standard streams:
+#   "[LEVEL] <Message>" if a level is set, just the message otherwise.
+#
+# The methods are mapped to usual logger levels:
+#   log_debug, log_info, log_warn, log_error
+#
+# It does not manage log levels and each method will output something.
+
 #------------------------------------------------------------------------------
 # logging_helper.log()
 # Outputs a log message.
@@ -23,7 +32,7 @@ log() {
 # logging_helper.log_debug()
 # Logs a message with DEBUG level.
 # Options:
-#   -u    makes the output uncatchable.
+#   -u    makes the output uncatchable by outputting on /dev/tty
 #------------------------------------------------------------------------------
 log_debug() {
   if [[ "$1" == "-u" ]]; then
@@ -36,7 +45,7 @@ log_debug() {
 
 #------------------------------------------------------------------------------
 # logging_helper.log_error()
-# Logs a message with ERROR level.
+# Logs a message with ERROR level on stderr.
 #------------------------------------------------------------------------------
 log_error() {
   log -l "ERROR" "$@" >& 2
@@ -44,7 +53,7 @@ log_error() {
 
 #------------------------------------------------------------------------------
 # logging_helper.log_info()
-# Logs a message with INFO level.
+# Logs a message with INFO level on std.
 #------------------------------------------------------------------------------
 log_info() {
   log -l "INFO" "$@"
@@ -52,7 +61,7 @@ log_info() {
 
 #------------------------------------------------------------------------------
 # logging_helper.log_warn()
-# Logs a message with WARN level.
+# Logs a message with WARN level on std.
 #------------------------------------------------------------------------------
 log_warn() {
   log -l "WARN" "$@"

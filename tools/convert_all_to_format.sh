@@ -46,7 +46,7 @@ convert_all_to_format() {
       if magick convert "$file" "${file//".$from"/".$to"}"; then
         [[ $o_delete -eq 0 ]] && rm --preserve-root "$file"
         _log -n '.'
-        [[ $(( count % 10)) -eq 0 ]] && _log -n '|'
+        [[ $((count % 10)) -eq 0 ]] && _log -n '|'
         [[ $((count % sections_count )) -eq 0 ]] && _log ''
       fi
       ((count++))

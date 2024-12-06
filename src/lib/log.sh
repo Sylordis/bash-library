@@ -7,7 +7,7 @@
 #   $*    Messages to log.
 # Options:
 #   -d    Logs the message on to /dev/tty.
-#   -e    Logs the message to error stream.
+#   -e    Logs the message to error stream (stderr).
 #   -v    Logs the message only if VERBOSE_MODE is set to 0.
 # Dependencies:
 #   echo

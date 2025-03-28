@@ -11,12 +11,14 @@
 #   -s, --silent  Silent mode, do not output anything
 #------------------------------------------------------------------------------
 convert_all_to_format() {
-  local file o_delete=1
+  local file o_delete=1 o_silent=1
   _log() { echo -e "$@"; }
+  _usage() { echo "usage: ${FUNCNAME[1]} [-d] [-s] <format-in> <format-out> <dirs..>"; }
   while : ; do
     case "$1" in
       -d|--delete) o_delete=0;;
-      -s|--silent) _log() { :; };;
+      -s|--silent) _log() { :; }; o_silent=0;;
+      -h|--help) _usage; return 0;;
       *) break;;
     esac
     shift
@@ -29,28 +31,37 @@ convert_all_to_format() {
   # Arg check
   if [[ $# -lt 3 ]]; then
     echo "ERROR[$FUNCNAME]: Wrong number of arguments." >& 2
-    echo 'usage: <format-in> <format-out> <dirs..>'
+    _usage
     return 1
   fi
   # Convert
-  local from to line_length sections_count count total
+  local from to line_length max_cols count index total max_str size end_str
   from="$1"
   to="$2"
   line_length=$(tput cols)
-  sections_count=$((line_length * 10 / 11))
   for dir in "${@:3}"; do
     count=1
+    index=0
     total=$(find "$dir" -maxdepth 1 -mindepth 1 -type f -name "*.$from" | wc -l)
-    _log "${dir}: ${total}"
+    max_str=" $total/$total"
+    max_cols=$(((line_length - ${#max_str}) / 10))
+    _log "${dir}:"
     while read -r file; do
       if magick convert "$file" "${file//".$from"/".$to"}"; then
         [[ $o_delete -eq 0 ]] && rm --preserve-root "$file"
-        _log -n '.'
-        [[ $((count % 10)) -eq 0 ]] && _log -n '|'
-        [[ $((count % sections_count )) -eq 0 ]] && _log ''
+        if [[ $o_silent -eq 1 ]]; then
+          end_str="$count/$total"
+          ((index++))
+          size=$((line_length - index - 1))
+          if [[ $index -ge $((max_cols * 10)) ]]; then
+              echo
+              ((index-= max_cols * 10))
+          fi
+          printf '\r%s%*s' "$(printf ".%0.s" $(seq -s ' ' 1 "$index"))" "$size" "$end_str"
+        fi
       fi
       ((count++))
     done < <(find "$dir" -maxdepth 1 -mindepth 1 -type f -name "*.$from")
   done
-  unset _log
+  unset _log _usage
 }

@@ -18,8 +18,8 @@ test_tp() {
 
 working_directory_create test1 test1/folder1 test1/folder2 test2
 
-GO_DYN_PATH_TT="echo '$TEST_WORKING_DIR/test1/folder2'"
-GO_DYN_PATH_TESTY="echo '/somewhere'"
+TP_DYN_PATH_TT="echo '$TEST_WORKING_DIR/test1/folder2'"
+TP_DYN_PATH_TESTY="echo '/somewhere'"
 
 TEST1_HOME="$TEST_WORKING_DIR/test1"
 
@@ -27,7 +27,7 @@ test_tp $'ERROR[tp]: Nowhere to go sir!\nUsage: tp <location> [suffixes..]'
 test_tp "$TEST1_HOME" TEST1
 test_tp "$TEST1_HOME" test1
 test_tp "$TEST1_HOME/folder1" test1 folder1
-test_tp "$(eval "$GO_DYN_PATH_TT")" tt
+test_tp "$(eval "$TP_DYN_PATH_TT")" tt
 test_tp "ERROR[tp]: Location 'idontexist' not set nor valid." idontexist
 test_tp "ERROR[tp]: Location 'IDONTEXIST' not set nor valid." IDONTEXIST
 test_tp "ERROR[tp]: Location '/somewhere' does not exist." testy

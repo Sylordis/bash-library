@@ -26,9 +26,9 @@ unset -f foo
 test_checkDependencies '|1' foo bar
 unset -f bar
 # Warning messages
-test_checkDependencies 'ERROR: cannot find dependency SHAKA on the system.|1' -w 'SHAKA'
-test_checkDependencies "ERROR: cannot find dependency FOO on the system.
-ERROR: cannot find dependency BAR on the system.|1" -w FOO BAR
+test_checkDependencies 'ERROR: cannot find dependency 'SHAKA' on the system.|1' -w 'SHAKA'
+test_checkDependencies "ERROR: cannot find dependency 'FOO' on the system.
+ERROR: cannot find dependency 'BAR' on the system.|1" -w FOO BAR
 test_checkDependencies 'ERROR: not found CARROT|1' -w='ERROR: not found __BIN__' 'CARROT'
 test_checkDependencies "ERROR: not found CARROT
 ERROR: not found TOMATO|1" -w='ERROR: not found __BIN__' CARROT TOMATO

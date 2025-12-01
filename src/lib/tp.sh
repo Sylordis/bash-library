@@ -6,8 +6,8 @@ source "$SH_PATH_LIB/to_upper.sh"
 #------------------------------------------------------------------------------
 # Changes the directory according to a local dynamic location or HOME variable.
 # They should be according to the form: {VAR}_HOME.
-# You can also declare dynamic pathes which will hold a command that go will
-# execute, every path being a variable named GO_DYN_PATH_{NAME}. Dynamic paths
+# You can also declare dynamic pathes which will hold a command that tp will
+# execute, every path being a variable named TP_DYN_PATH_{NAME}. Dynamic paths
 # are checked before home variables and will override them if having the same
 # name/var.
 # Params:
@@ -18,19 +18,19 @@ source "$SH_PATH_LIB/to_upper.sh"
 # Dependencies:
 #   echo
 #------------------------------------------------------------------------------
-go() {
+tp() {
   if [[ $# -eq 0 ]]; then
     echo "ERROR[$FUNCNAME]: Nowhere to go sir!" >& 2
-    echo "Usage: go <location> [suffixes..]"
+    echo "Usage: $FUNCNAME <location> [suffixes..]"
     return 1
   else
     # Getting location var
     local loc=""
     local dyn_path
-    dyn_path="$(declare -p "GO_DYN_PATH_$(to_upper "$1")"  2> /dev/null)"
+    dyn_path="$(declare -p "TP_DYN_PATH_$(to_upper "$1")"  2> /dev/null)"
     if [[ -n "$dyn_path" ]]; then
       # Dynamic path: get the path from an expression
-      loc="GO_DYN_PATH_$(to_upper "$1")"
+      loc="TP_DYN_PATH_$(to_upper "$1")"
       loc="$(eval "${!loc}" "${@:2}")"
     else
       # Usual: get the HOME variable

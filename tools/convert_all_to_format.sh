@@ -42,7 +42,7 @@ convert_all_to_format() {
   for dir in "${@:3}"; do
     count=1
     index=0
-    total=$(find "$dir" -maxdepth 1 -mindepth 1 -type f -name "*.$from" | wc -l)
+    total=$(find "$dir" -maxdepth 1 -mindepth 1 -type f -name "*.$from" 2> /dev/null | wc -l)
     max_str=" $total/$total"
     max_cols=$(((line_length - ${#max_str}) / 10))
     _log "${dir}:"
@@ -62,6 +62,11 @@ convert_all_to_format() {
       fi
       ((count++))
     done < <(find "$dir" -maxdepth 1 -mindepth 1 -type f -name "*.$from")
+    if [[ "$total" -eq 0 ]]; then
+      _log "No files to convert."
+    else
+      _log ""
+    fi
   done
   unset _log _usage
 }

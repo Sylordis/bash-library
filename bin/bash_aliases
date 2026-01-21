@@ -1,0 +1,4 @@
+# Useful bash aliases
+
+alias gitroot='git rev-parse --show-toplevel'
+alias reload='source ~/.bashrc'

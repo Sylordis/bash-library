@@ -2,12 +2,12 @@
 
 source "$SH_PATH_UTILS/init_animation.sh"
 
-args_bg=(-v)
+args_bg=()
 args=(20)
 t=8
 while : ; do
   case "$1" in
-    -nv) args_bg=();;
+     -v) args_bg=(-v);;
    full) args=();;
      -t) t="$2"; shift;;
       *) break;;

@@ -15,6 +15,6 @@ if [[ $# -ne 0 ]]; then
     exit 1
   fi
 fi
-$SH_PATH/tools/launch_bg_process.sh -v -t $t \
+$SH_PATH/tools/launch_bg_process.sh -t $t \
     -s "$SH_PATH_ANIM/animation_spinner.sh" \
     animation_spinner "${args[@]}"

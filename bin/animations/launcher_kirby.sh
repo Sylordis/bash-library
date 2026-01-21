@@ -2,9 +2,9 @@
 
 source "$SH_PATH_UTILS/init_animation.sh"
 
-args_bg=(-v)
-if [[ "$1" == "-nv" ]]; then
-  args_bg=()
+args_bg=()
+if [[ "$1" == "-v" ]]; then
+  args_bg=(-v)
   shift
 fi
 

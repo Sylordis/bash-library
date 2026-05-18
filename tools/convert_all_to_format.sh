@@ -9,15 +9,19 @@
 # Options:
 #   -d, --delete  Deletes source after conversion
 #   -s, --silent  Silent mode, do not output anything
+#   -bgblack, -bgwhite
+#                 For alpha to non-alpha format, will fill the alpha parts of
+#                 the image with the given colour.
 #------------------------------------------------------------------------------
 convert_all_to_format() {
-  local file o_delete=1 o_silent=1
+  local file o_delete=1 o_silent=1 _o_bg
   _log() { echo -e "$@"; }
-  _usage() { echo "usage: ${FUNCNAME[1]} [-d] [-s] <format-in> <format-out> <dirs..>"; }
+  _usage() { echo "usage: ${FUNCNAME[1]} [-d] [-s] [-bg<white|black>] <format-in> <format-out> <dirs..>"; }
   while : ; do
     case "$1" in
       -d|--delete) o_delete=0;;
       -s|--silent) _log() { :; }; o_silent=0;;
+      -bgblack|-bgwhite) _o_bg="${1##-bg}" ;;
       -h|--help) _usage; return 0;;
       *) break;;
     esac
@@ -36,6 +40,8 @@ convert_all_to_format() {
   fi
   # Convert
   local from to line_length max_cols count index total max_str size end_str
+  _magic_args=()
+  [[ -n "${_o_bg}" ]] && _magic_args+=("-background" "${_o_bg}" "-flatten" "-alpha" "off")
   from="$1"
   to="$2"
   line_length=$(tput cols)
@@ -47,7 +53,7 @@ convert_all_to_format() {
     max_cols=$(((line_length - ${#max_str}) / 10))
     _log "${dir}:"
     while read -r file; do
-      if magick convert "$file" "${file//".$from"/".$to"}"; then
+      if magick "$file" "${_magic_args[@]}" "${file//".$from"/".$to"}"; then
         [[ $o_delete -eq 0 ]] && rm --preserve-root "$file"
         if [[ $o_silent -eq 1 ]]; then
           end_str="$count/$total"
@@ -68,5 +74,5 @@ convert_all_to_format() {
       _log ""
     fi
   done
-  unset _log _usage
+  unset _log _usage _magic_args
 }

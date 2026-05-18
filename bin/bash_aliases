@@ -2,3 +2,4 @@
 
 alias gitroot='git rev-parse --show-toplevel'
 alias reload='source ~/.bashrc'
+alias dated='date -Iseconds | tr ":" "-"'
